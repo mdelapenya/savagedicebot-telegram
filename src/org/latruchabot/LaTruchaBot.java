@@ -51,23 +51,26 @@ public class LaTruchaBot extends TelegramBot implements TelegramBotListener
         }
 
         long chatID = message.getChatID();
+        String resultText;
 
         if(text.startsWith("/d "))
         {
             try
             {
                 String res = this.parsearFormula(text.substring(3));
-                
-                this.sendText(chatID, "Resultado (" + usr + "): " + res);
+
+                resultText = "Resultado (" + usr + "): " + res;
+                this.sendText(chatID, resultText);
             }
             catch (Exception e)
             {
-                this.sendText(chatID, "Error en tirada: " + text.substring(3));
+                resultText = "Error en tirada: " + text.substring(3);
+                this.sendText(chatID, resultText);
             }
         }
         else if(text.equals("/dhelp"))
         {
-            this.sendText(chatID, "<b>LaTruchaBot - Ayuda</b>\r\n"
+            resultText = "<b>LaTruchaBot - Ayuda</b>\r\n"
                     + " - Formato de dado: +/-NdC[e o sS]\r\n"
                     + "   � N: n�mero de dados\r\n"
                     + "   � C: n�mero de cara de los dados\r\n"
@@ -90,7 +93,8 @@ public class LaTruchaBot extends TelegramBot implements TelegramBotListener
                     + " - Ejemplo: /d10s\r\n"
                     + "\r\n"
                     + "Ejemplo de tirada compleja: /d 2d8 + 2d6e - 3d4s\r\n"
-                    + "Ejemplo de tirada simple: /d10s8");
+                    + "Ejemplo de tirada simple: /d10s8";
+            this.sendText(chatID, resultText);
         }
         else if(text.startsWith("/d"))
         {
@@ -100,11 +104,13 @@ public class LaTruchaBot extends TelegramBot implements TelegramBotListener
                 
                 String res = this.parsearFormula(text.substring(1));
                 
-                this.sendText(chatID, "Resultado (" + usr + "): " + res);
+                resultText = "Resultado (" + usr + "): " + res;
+                this.sendText(chatID, resultText);
             }
             catch (Exception e)
             {
-                this.sendText(chatID, "Error en tirada: " + text.substring(1));
+                resultText = "Error en tirada: " + text.substring(1);
+                this.sendText(chatID, resultText);
             }
         }
     }
