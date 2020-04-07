@@ -43,30 +43,34 @@ public class BotInputParser {
             }
         }
         else if(text.equals("/dhelp")) {
-            resultText = "<b>LaTruchaBot - Ayuda</b>\r\n"
-                + " - Formato de dado: +/-NdC[e o sS]\r\n"
-                + "   · N: número de dados\r\n"
-                + "   · C: número de cara de los dados\r\n"
-                + "   · e: para indicar que el dado explora\r\n"
-                + "   · s: para indicar que es un dado salvaje\r\n"
-                + "   · S: en caso de dado salvaje, número de caras del dado salvaje\r\n"
-                + " - Ejemplos:\r\n"
-                + "   · /d +2d8: 2 dados de 8\r\n"
-                + "   · /d +1d6e: 1 dado de 6 que puede explotar\r\n"
-                + "   · /d +1d8s6: 1 dado de 8 y 1 dado de 6 salvaje (ambos explotan)\r\n"
-                + "Se pueden sumar o restar varios dados en una misma tirada:\r\n"
-                + " - Ejemplo: +2d8 - 2d4e\r\n"
-                + "Si se va realizar una tirada con dado salvaje d6 no es necesario añadir el 6.\r\n"
-                + " - Ejemplo: +1d8s  =  +1d8s6\r\n"
-                + "Si el primer dado de la tirada es para sumar no es neceario añadir el +.\r\n"
-                + " - Ejemplo: +1d8s  =  1d8s\r\n"
-                + "Si solo se va a lanzar un dado no es necesario añadir el 1.\r\n"
-                + " - Ejemplo: 1d8s  =  d8s\r\n"
-                + "Se puede realizar una tirada simple de forma directa.\r\n"
-                + " - Ejemplo: /d10s\r\n"
-                + "\r\n"
-                + "Ejemplo de tirada compleja: /d 2d8 + 2d6e - 3d4s\r\n"
-                + "Ejemplo de tirada simple: /d10s8";
+            StringBuilder sb = new StringBuilder(24);
+
+            sb.append("<b>LaTruchaBot - Ayuda</b>\r\n");
+            sb.append(" - Formato de dado: +/-NdC[e o sS]\r\n");
+            sb.append("   · N: número de dados\r\n");
+            sb.append("   · C: número de cara de los dados\r\n");
+            sb.append("   · e: para indicar que el dado explora\r\n");
+            sb.append("   · s: para indicar que es un dado salvaje\r\n");
+            sb.append("   · S: en caso de dado salvaje, número de caras del dado salvaje\r\n");
+            sb.append(" - Ejemplos:\r\n");
+            sb.append("   · /d +2d8: 2 dados de 8\r\n");
+            sb.append("   · /d +1d6e: 1 dado de 6 que puede explotar\r\n");
+            sb.append("   · /d +1d8s6: 1 dado de 8 y 1 dado de 6 salvaje (ambos explotan)\r\n");
+            sb.append("Se pueden sumar o restar varios dados en una misma tirada:\r\n");
+            sb.append(" - Ejemplo: +2d8 - 2d4e\r\n");
+            sb.append("Si se va realizar una tirada con dado salvaje d6 no es necesario añadir el 6.\r\n");
+            sb.append(" - Ejemplo: +1d8s  =  +1d8s6\r\n");
+            sb.append("Si el primer dado de la tirada es para sumar no es neceario añadir el +.\r\n");
+            sb.append(" - Ejemplo: +1d8s  =  1d8s\r\n");
+            sb.append("Si solo se va a lanzar un dado no es necesario añadir el 1.\r\n");
+            sb.append(" - Ejemplo: 1d8s  =  d8s\r\n");
+            sb.append("Se puede realizar una tirada simple de forma directa.\r\n");
+            sb.append(" - Ejemplo: /d10s\r\n");
+            sb.append("\r\n");
+            sb.append("Ejemplo de tirada compleja: /d 2d8 + 2d6e - 3d4s\r\n");
+            sb.append("Ejemplo de tirada simple: /d10s8");
+
+            resultText = sb.toString();
         }
         else if(text.startsWith("/d")) {
             try {
