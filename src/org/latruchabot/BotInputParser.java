@@ -7,8 +7,7 @@ public class BotInputParser {
     private String caracteresValidos = "0123456789des+-";
 
     public String parse(TelegramUser telegramUser, String text) {
-        if(text.endsWith("@LaTruchaBot"))
-        {
+        if(text.endsWith("@LaTruchaBot")) {
             text = text.substring(0, text.indexOf("@LaTruchaBot"));
         }
 
@@ -16,44 +15,34 @@ public class BotInputParser {
 
         String usr = telegramUser.getAlias();
 
-        if(usr == null)
-        {
-            if(telegramUser.getFirstName() != null && telegramUser.getLastName() != null)
-            {
+        if(usr == null) {
+            if(telegramUser.getFirstName() != null && telegramUser.getLastName() != null) {
                 usr = telegramUser.getFirstName() + " " + telegramUser.getLastName();
             }
-            else if(telegramUser.getFirstName() != null)
-            {
+            else if(telegramUser.getFirstName() != null) {
                 usr = telegramUser.getFirstName();
             }
-            else if(telegramUser.getLastName() != null)
-            {
+            else if(telegramUser.getLastName() != null) {
                 usr = telegramUser.getLastName();
             }
-            else
-            {
+            else {
                 usr = "Desconocido";
             }
         }
 
-
         String resultText = null;
 
-        if(text.startsWith("/d "))
-        {
-            try
-            {
+        if(text.startsWith("/d ")) {
+            try {
                 String res = this.parsearFormula(text.substring(3));
 
                 resultText = "Resultado (" + usr + "): " + res;
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 resultText = "Error en tirada: " + text.substring(3);
             }
         }
-        else if(text.equals("/dhelp"))
-        {
+        else if(text.equals("/dhelp")) {
             resultText = "<b>LaTruchaBot - Ayuda</b>\r\n"
                 + " - Formato de dado: +/-NdC[e o sS]\r\n"
                 + "   · N: número de dados\r\n"
@@ -79,18 +68,17 @@ public class BotInputParser {
                 + "Ejemplo de tirada compleja: /d 2d8 + 2d6e - 3d4s\r\n"
                 + "Ejemplo de tirada simple: /d10s8";
         }
-        else if(text.startsWith("/d"))
-        {
-            try
-            {
-                if(text.contains(" ")) throw new LTBException("Error en tirada");
+        else if(text.startsWith("/d")) {
+            try {
+                if(text.contains(" ")) {
+                    throw new LTBException("Error en tirada");
+                }
 
                 String res = this.parsearFormula(text.substring(1));
 
                 resultText = "Resultado (" + usr + "): " + res;
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 resultText = "Error en tirada: " + text.substring(1);
             }
         }
@@ -98,20 +86,16 @@ public class BotInputParser {
         return resultText;
     }
 
-    private String parsearFormula(String formula) throws Exception
-    {
+    private String parsearFormula(String formula) throws Exception {
         formula = formula.toLowerCase().replace(" ", "");
 
-        for(char ch : formula.toCharArray())
-        {
-            if(this.caracteresValidos.indexOf(ch) < 0)
-            {
+        for(char ch : formula.toCharArray()) {
+            if(this.caracteresValidos.indexOf(ch) < 0) {
                 throw new LTBException("No se admite '" + new String(new char[]{ch}) + "' en la fórmula");
             }
         }
 
-        if(!formula.startsWith("+") && !formula.startsWith("-"))
-        {
+        if(!formula.startsWith("+") && !formula.startsWith("-")) {
             formula = "+" + formula;
         }
 
@@ -124,17 +108,14 @@ public class BotInputParser {
 
         String texto = "";
 
-        if(dados.length == 1)
-        {
+        if(dados.length == 1) {
             ResultadoTirada resultadoTirada = new Dado(dados[0]).getResultadoTirada();
             texto = texto + " " + resultadoTirada.getDetalle();
             return texto + " = " + resultadoTirada.getResultado();
         }
-        else
-        {
+        else {
             int total = 0;
-            for(String dado : dados)
-            {
+            for(String dado : dados) {
                 ResultadoTirada resultadoTirada = new Dado(dado).getResultadoTirada();
                 texto = texto + "\r\n" + resultadoTirada.getDetalle();
 
