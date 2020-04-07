@@ -49,23 +49,25 @@ public class LaTruchaBot extends TelegramBot implements TelegramBotListener
                 usr = "Desconocido";
             }
         }
-        
+
+        long chatID = message.getChatID();
+
         if(text.startsWith("/d "))
         {
             try
             {
                 String res = this.parsearFormula(text.substring(3));
                 
-                this.sendText(message.getChatID(), "Resultado (" + usr + "): " + res);
+                this.sendText(chatID, "Resultado (" + usr + "): " + res);
             }
             catch (Exception e)
             {
-                this.sendText(message.getChatID(), "Error en tirada: " + text.substring(3));
+                this.sendText(chatID, "Error en tirada: " + text.substring(3));
             }
         }
         else if(text.equals("/dhelp"))
         {
-            this.sendText(message.getChatID(), "<b>LaTruchaBot - Ayuda</b>\r\n"
+            this.sendText(chatID, "<b>LaTruchaBot - Ayuda</b>\r\n"
                     + " - Formato de dado: +/-NdC[e o sS]\r\n"
                     + "   � N: n�mero de dados\r\n"
                     + "   � C: n�mero de cara de los dados\r\n"
@@ -98,11 +100,11 @@ public class LaTruchaBot extends TelegramBot implements TelegramBotListener
                 
                 String res = this.parsearFormula(text.substring(1));
                 
-                this.sendText(message.getChatID(), "Resultado (" + usr + "): " + res);
+                this.sendText(chatID, "Resultado (" + usr + "): " + res);
             }
             catch (Exception e)
             {
-                this.sendText(message.getChatID(), "Error en tirada: " + text.substring(1));
+                this.sendText(chatID, "Error en tirada: " + text.substring(1));
             }
         }
     }
