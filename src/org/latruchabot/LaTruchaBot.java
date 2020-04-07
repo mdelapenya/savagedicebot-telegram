@@ -51,7 +51,7 @@ public class LaTruchaBot extends TelegramBot implements TelegramBotListener
         }
 
         long chatID = message.getChatID();
-        String resultText;
+        String resultText = null;
 
         if(text.startsWith("/d "))
         {
@@ -60,12 +60,10 @@ public class LaTruchaBot extends TelegramBot implements TelegramBotListener
                 String res = this.parsearFormula(text.substring(3));
 
                 resultText = "Resultado (" + usr + "): " + res;
-                this.sendText(chatID, resultText);
             }
             catch (Exception e)
             {
                 resultText = "Error en tirada: " + text.substring(3);
-                this.sendText(chatID, resultText);
             }
         }
         else if(text.equals("/dhelp"))
@@ -94,7 +92,6 @@ public class LaTruchaBot extends TelegramBot implements TelegramBotListener
                     + "\r\n"
                     + "Ejemplo de tirada compleja: /d 2d8 + 2d6e - 3d4s\r\n"
                     + "Ejemplo de tirada simple: /d10s8";
-            this.sendText(chatID, resultText);
         }
         else if(text.startsWith("/d"))
         {
@@ -105,13 +102,15 @@ public class LaTruchaBot extends TelegramBot implements TelegramBotListener
                 String res = this.parsearFormula(text.substring(1));
                 
                 resultText = "Resultado (" + usr + "): " + res;
-                this.sendText(chatID, resultText);
             }
             catch (Exception e)
             {
                 resultText = "Error en tirada: " + text.substring(1);
-                this.sendText(chatID, resultText);
             }
+        }
+
+        if (resultText != null) {
+            this.sendText(chatID, resultText);
         }
     }
     
