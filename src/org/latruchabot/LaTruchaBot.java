@@ -21,24 +21,21 @@ public class LaTruchaBot extends TelegramBot implements TelegramBotListener
         //System.out.println(message.getChatID() + " - " + message.getMessageText());
 
         long chatID = message.getChatID();
-        String resultText = parseBotInput(message);
+        TelegramUser telegramUser = message.getUser();
+        String resultText = parseBotInput(telegramUser, message.getMessageText());
 
         if (resultText != null) {
             this.sendText(chatID, resultText);
         }
     }
 
-    private String parseBotInput(TelegramBotMessage message) {
-        String text = message.getMessageText();
-
+    private String parseBotInput(TelegramUser telegramUser, String text) {
         if(text.endsWith("@LaTruchaBot"))
         {
             text = text.substring(0, text.indexOf("@LaTruchaBot"));
         }
 
         text = text.toLowerCase();
-
-        TelegramUser telegramUser = message.getUser();
 
         String usr = telegramUser.getAlias();
 
