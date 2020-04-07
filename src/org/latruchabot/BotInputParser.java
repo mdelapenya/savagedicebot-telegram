@@ -4,6 +4,8 @@ import telegrambots.core.TelegramUser;
 
 public class BotInputParser {
 
+    public static final String HELP_COMMAND = "/dhelp";
+
     private String caracteresValidos = "0123456789des+-";
 
     public String parse(TelegramUser telegramUser, String text) {
@@ -30,19 +32,17 @@ public class BotInputParser {
             }
         }
 
-        String resultText = null;
-
         if(text.startsWith("/d ")) {
             try {
                 String res = this.parsearFormula(text.substring(3));
 
-                resultText = "Resultado (" + usr + "): " + res;
+                return "Resultado (" + usr + "): " + res;
             }
             catch (Exception e) {
-                resultText = "Error en tirada: " + text.substring(3);
+                return "Error en tirada: " + text.substring(3);
             }
         }
-        else if(text.equals("/dhelp")) {
+        else if(text.equals(HELP_COMMAND)) {
             StringBuilder sb = new StringBuilder(24);
 
             sb.append("<b>LaTruchaBot - Ayuda</b>\r\n");
@@ -70,7 +70,7 @@ public class BotInputParser {
             sb.append("Ejemplo de tirada compleja: /d 2d8 + 2d6e - 3d4s\r\n");
             sb.append("Ejemplo de tirada simple: /d10s8");
 
-            resultText = sb.toString();
+            return sb.toString();
         }
         else if(text.startsWith("/d")) {
             try {
@@ -80,14 +80,14 @@ public class BotInputParser {
 
                 String res = this.parsearFormula(text.substring(1));
 
-                resultText = "Resultado (" + usr + "): " + res;
+                return "Resultado (" + usr + "): " + res;
             }
             catch (Exception e) {
-                resultText = "Error en tirada: " + text.substring(1);
+                return "Error en tirada: " + text.substring(1);
             }
         }
 
-        return resultText;
+        return null;
     }
 
     private String parsearFormula(String formula) throws Exception {

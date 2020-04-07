@@ -28,7 +28,7 @@ public class BotInputParserTest {
 
     @Test
     public void testParseHelpCommand() {
-        String result = parser.parse(user, "/dhelp");
+        String result = parser.parse(user, BotInputParser.HELP_COMMAND);
 
         Assert.assertTrue(result.contains("<b>LaTruchaBot - Ayuda</b>\r\n"));
         Assert.assertTrue(result.contains(" - Ejemplos:\r\n"));
