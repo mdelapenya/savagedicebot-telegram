@@ -3,6 +3,7 @@ package org.latruchabot;
 import telegrambots.core.TelegramBot;
 import telegrambots.core.TelegramBotListener;
 import telegrambots.core.TelegramBotMessage;
+import telegrambots.core.TelegramUser;
 
 public class LaTruchaBot extends TelegramBot implements TelegramBotListener
 {
@@ -37,21 +38,23 @@ public class LaTruchaBot extends TelegramBot implements TelegramBotListener
 
         text = text.toLowerCase();
 
-        String usr = message.getUser().getAlias();
+        TelegramUser telegramUser = message.getUser();
+
+        String usr = telegramUser.getAlias();
 
         if(usr == null)
         {
-            if(message.getUser().getFirstName() != null && message.getUser().getLastName() != null)
+            if(telegramUser.getFirstName() != null && telegramUser.getLastName() != null)
             {
-                usr = message.getUser().getFirstName() + " " + message.getUser().getLastName();
+                usr = telegramUser.getFirstName() + " " + telegramUser.getLastName();
             }
-            else if(message.getUser().getFirstName() != null)
+            else if(telegramUser.getFirstName() != null)
             {
-                usr = message.getUser().getFirstName();
+                usr = telegramUser.getFirstName();
             }
-            else if(message.getUser().getLastName() != null)
+            else if(telegramUser.getLastName() != null)
             {
-                usr = message.getUser().getLastName();
+                usr = telegramUser.getLastName();
             }
             else
             {
