@@ -6,8 +6,7 @@ public class BotInputParser {
 
     public static final String COMPLEX_ROLL_COMMAND = "/d ";
     public static final String HELP_COMMAND = "/dhelp";
-
-    private String caracteresValidos = "0123456789des+-";
+    private static final String VALID_CHARS = "0123456789des+-";
 
     public String parse(TelegramUser telegramUser, String text) {
         if(text.endsWith("@LaTruchaBot")) {
@@ -98,7 +97,7 @@ public class BotInputParser {
         formula = formula.toLowerCase().replace(" ", "");
 
         for(char ch : formula.toCharArray()) {
-            if(this.caracteresValidos.indexOf(ch) < 0) {
+            if(this.VALID_CHARS.indexOf(ch) < 0) {
                 throw new LTBException("No se admite '" + new String(new char[]{ch}) + "' en la fórmula");
             }
         }
@@ -112,25 +111,25 @@ public class BotInputParser {
 
         formula = formula.substring(1);
 
-        String[] dados = formula.split(";");
+        String[] dice = formula.split(";");
 
-        String texto = "";
+        String text = "";
 
-        if(dados.length == 1) {
-            ResultadoTirada resultadoTirada = new Dado(dados[0]).getResultadoTirada();
-            texto = texto + " " + resultadoTirada.getDetalle();
-            return texto + " = " + resultadoTirada.getResultado();
+        if(dice.length == 1) {
+            DiceRoll diceRoll = new Dice(dice[0]).getDiceResult();
+            text = text + " " + diceRoll.getDetail();
+            return text + " = " + diceRoll.getResult();
         }
         else {
             int total = 0;
-            for(String dado : dados) {
-                ResultadoTirada resultadoTirada = new Dado(dado).getResultadoTirada();
-                texto = texto + "\r\n" + resultadoTirada.getDetalle();
+            for(String dado : dice) {
+                DiceRoll diceRoll = new Dice(dado).getDiceResult();
+                text = text + "\r\n" + diceRoll.getDetail();
 
-                total += resultadoTirada.getResultado();
+                total += diceRoll.getResult();
             }
 
-            return texto + "\r\nTotal: " + total;
+            return text + "\r\nTotal: " + total;
         }
     }
 
