@@ -75,12 +75,15 @@ public class BotInputParser {
         else if(text.startsWith("/d")) {
             try {
                 if(text.contains(" ")) {
-                    throw new LTBException("Error en tirada");
+                    throw new LTBException("Error en tirada: no se admiten espacios");
                 }
 
                 String res = this.parsearFormula(text.substring(1));
 
                 return "Resultado (" + usr + "): " + res;
+            }
+            catch (LTBException e) {
+                return e.getLocalizedMessage();
             }
             catch (Exception e) {
                 return "Error en tirada: " + text.substring(1);
