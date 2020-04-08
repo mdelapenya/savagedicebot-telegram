@@ -1,4 +1,4 @@
-# LaTruchaBot
+# SavageDiceBot
 Este bot sirve para devolver el resultado de la tirada de uno o varios dados, y enviarlo a Telegram en un bot.
 
 ## Construcción del proyecto

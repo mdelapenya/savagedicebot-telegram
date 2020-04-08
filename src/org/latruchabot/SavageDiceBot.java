@@ -7,12 +7,11 @@ import telegrambots.core.TelegramBotListener;
 import telegrambots.core.TelegramBotMessage;
 import telegrambots.core.TelegramUser;
 
-public class LaTruchaBot extends TelegramBot implements TelegramBotListener {
+public class SavageDiceBot extends TelegramBot implements TelegramBotListener {
 
     private static final Dotenv DOTENV = Dotenv.configure().directory(".").load();
 
-    public LaTruchaBot()
-    {
+    public SavageDiceBot() {
         super( DOTENV.get("TELEGRAM_USERNAME"), DOTENV.get("TELEGRAM_TOKEN"), false, false);
         this.setTelegramBotListener(this);
     }
