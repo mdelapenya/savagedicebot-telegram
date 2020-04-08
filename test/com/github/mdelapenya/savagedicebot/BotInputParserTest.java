@@ -14,13 +14,13 @@ public class BotInputParserTest {
     @Before
     public void setUp() {
         parser = new BotInputParser();
-        user = new TelegramUser(1L, "latrucha", "que achucha", "latruchabot");
+        user = new TelegramUser(1L, "Manu", "de la Peña", "mdelapenya");
     }
 
     @Test
     public void testParseDiceRollComplex() {
         String result = parser.parse(user, BotInputParser.COMPLEX_ROLL_COMMAND + "2d8 + 1d4");
-        Assert.assertTrue(result.contains("Resultado (latruchabot):"));
+        Assert.assertTrue(result.contains("Resultado (mdelapenya):"));
         Assert.assertTrue(result.contains("+2d8 ("));
         Assert.assertTrue(result.contains("+1d4 ("));
     }
