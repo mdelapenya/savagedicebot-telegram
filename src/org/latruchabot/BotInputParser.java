@@ -4,6 +4,7 @@ import telegrambots.core.TelegramUser;
 
 public class BotInputParser {
 
+    public static final String COMPLEX_ROLL_COMMAND = "/d ";
     public static final String HELP_COMMAND = "/dhelp";
 
     private String caracteresValidos = "0123456789des+-";
@@ -32,7 +33,7 @@ public class BotInputParser {
             }
         }
 
-        if(text.startsWith("/d ")) {
+        if(text.startsWith(COMPLEX_ROLL_COMMAND)) {
             try {
                 String res = this.parsearFormula(text.substring(3));
 
