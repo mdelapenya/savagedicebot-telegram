@@ -1,4 +1,4 @@
-package org.latruchabot;
+package com.github.mdelapenya.savagedicebot;
 
 public class LTBException extends RuntimeException
 {
