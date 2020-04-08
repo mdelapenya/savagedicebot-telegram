@@ -18,12 +18,31 @@ public class BotInputParserTest {
     }
 
     @Test
+    public void testParseDiceRollComplex() {
+        String result = parser.parse(user, BotInputParser.COMPLEX_ROLL_COMMAND + "2d8 + 1d4");
+        Assert.assertTrue(result.contains("Resultado (latruchabot):"));
+        Assert.assertTrue(result.contains("+2d8 ("));
+        Assert.assertTrue(result.contains("+1d4 ("));
+    }
+
+    @Test
+    public void testParseDiceIncludingWrongCharsReturnsError() {
+        String result = parser.parse(user, "/d4x");
+        Assert.assertEquals("No se admite 'x' en la fórmula", result);
+
+        result = parser.parse(user, "/d4*");
+        Assert.assertEquals("No se admite '*' en la fórmula", result);
+    }
+
+    @Test
     public void testParseDiceIncludingSpacesReturnsError() {
+        String expected = "Error en tirada: no se admiten espacios";
+
         String result = parser.parse(user, "/d4 ");
-        Assert.assertEquals("Error en tirada: d4 ", result);
+        Assert.assertEquals(expected, result);
 
         result = parser.parse(user, "/d4 is not valid");
-        Assert.assertEquals("Error en tirada: d4 is not valid", result);
+        Assert.assertEquals(expected, result);
     }
 
     @Test
