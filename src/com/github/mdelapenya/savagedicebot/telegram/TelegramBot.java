@@ -103,7 +103,7 @@ public abstract class TelegramBot extends TelegramLongPollingBot {
                             message.setFiles(files);
                         }
                         
-                        TelegramBot.this.telegramBotListener.reciveMessage(message);
+                        TelegramBot.this.telegramBotListener.receiveMessage(message);
                     }
                 }
                 catch (Exception e) {
