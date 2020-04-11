@@ -15,19 +15,7 @@ public class BotInputParser {
 
         text = text.toLowerCase();
 
-        String usr = telegramUser.getAlias();
-
-        if(usr == null) {
-            if(telegramUser.getFirstName() != null && telegramUser.getLastName() != null) {
-                usr = telegramUser.getFirstName() + " " + telegramUser.getLastName();
-            } else if(telegramUser.getFirstName() != null) {
-                usr = telegramUser.getFirstName();
-            } else if(telegramUser.getLastName() != null) {
-                usr = telegramUser.getLastName();
-            } else {
-                usr = "Desconocido";
-            }
-        }
+        String usr = checkUser(telegramUser);
 
         if(text.startsWith(COMPLEX_ROLL_COMMAND)) {
             try {
@@ -83,6 +71,28 @@ public class BotInputParser {
         }
 
         return null;
+    }
+
+    protected String checkUser(TelegramUser telegramUser) {
+        String usr = telegramUser.getAlias();
+
+        if(usr != null) {
+            return usr;
+        }
+
+        if(telegramUser.getFirstName() != null && telegramUser.getLastName() != null) {
+            return telegramUser.getFirstName() + " " + telegramUser.getLastName();
+        }
+
+        if(telegramUser.getFirstName() != null) {
+            return telegramUser.getFirstName();
+        }
+
+        if(telegramUser.getLastName() != null) {
+            return telegramUser.getLastName();
+        }
+
+        return "Desconocido";
     }
 
     private String parsearFormula(String formula) throws Exception {

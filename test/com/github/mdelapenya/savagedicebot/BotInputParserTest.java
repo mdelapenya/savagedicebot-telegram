@@ -18,6 +18,38 @@ public class BotInputParserTest {
     }
 
     @Test
+    public void testCheckTelegramUserWithoutAlias() {
+        user = new TelegramUser(1L, "Manu", "de la Peña", null);
+        String result = parser.checkUser(user);
+
+        Assert.assertEquals("Manu de la Peña", result);
+    }
+
+    @Test
+    public void testCheckTelegramUserWithFirstNameOnly() {
+        user = new TelegramUser(1L, "Manu", null, null);
+        String result = parser.checkUser(user);
+
+        Assert.assertEquals("Manu", result);
+    }
+
+    @Test
+    public void testCheckTelegramUserWithLastNameOnly() {
+        user = new TelegramUser(1L, null, "de la Peña", null);
+        String result = parser.checkUser(user);
+
+        Assert.assertEquals("de la Peña", result);
+    }
+
+    @Test
+    public void testCheckTelegramUserWithoutValues() {
+        user = new TelegramUser(1L, null, null, null);
+        String result = parser.checkUser(user);
+
+        Assert.assertEquals("Desconocido", result);
+    }
+
+    @Test
     public void testParseDiceRollComplex() {
         String result = parser.parse(user, BotInputParser.COMPLEX_ROLL_COMMAND + "2d8 + 1d4");
         Assert.assertTrue(result.contains("Resultado (mdelapenya):"));
