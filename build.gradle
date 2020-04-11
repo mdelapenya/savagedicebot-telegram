@@ -1,5 +1,10 @@
+apply plugin: 'application'
 apply plugin: 'idea'
 apply plugin: 'java'
+
+application {
+    mainClassName = 'com.github.mdelapenya.savagedicebot.Main'
+}
 
 repositories {
     mavenCentral()
