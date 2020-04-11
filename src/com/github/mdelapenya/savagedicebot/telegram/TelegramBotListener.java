@@ -4,6 +4,6 @@ import com.github.mdelapenya.savagedicebot.model.TelegramBotMessage;
 
 public interface TelegramBotListener {
 
-    public void receiveMessage(TelegramBotMessage message);
+    void receiveMessage(TelegramBotMessage message);
 
 }
