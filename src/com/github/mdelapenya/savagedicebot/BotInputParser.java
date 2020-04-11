@@ -19,7 +19,7 @@ public class BotInputParser {
 
         if(text.startsWith(COMPLEX_ROLL_COMMAND)) {
             try {
-                String res = this.parsearFormula(text.substring(3));
+                String res = parseFormula(text.substring(3));
 
                 return "Resultado (" + usr + "): " + res;
             } catch (Exception e) {
@@ -60,7 +60,7 @@ public class BotInputParser {
                     throw new LTBException("Error en tirada: no se admiten espacios");
                 }
 
-                String res = this.parsearFormula(text.substring(1));
+                String res = parseFormula(text.substring(1));
 
                 return "Resultado (" + usr + "): " + res;
             } catch (LTBException e) {
@@ -95,7 +95,7 @@ public class BotInputParser {
         return "Desconocido";
     }
 
-    private String parsearFormula(String formula) throws Exception {
+    protected String parseFormula(String formula) throws Exception {
         formula = formula.toLowerCase().replace(" ", "");
 
         for(char ch : formula.toCharArray()) {
