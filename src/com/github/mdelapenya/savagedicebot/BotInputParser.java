@@ -1,6 +1,8 @@
 package com.github.mdelapenya.savagedicebot;
 
-import telegrambots.core.TelegramUser;
+import com.github.mdelapenya.savagedicebot.model.Dice;
+import com.github.mdelapenya.savagedicebot.model.DiceRoll;
+import com.github.mdelapenya.savagedicebot.model.TelegramUser;
 
 public class BotInputParser {
 

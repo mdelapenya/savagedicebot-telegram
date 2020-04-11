@@ -1,13 +1,18 @@
-package telegrambots.core;
+package com.github.mdelapenya.savagedicebot.telegram;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
+
+import com.github.mdelapenya.savagedicebot.model.TelegramBotMessage;
+import com.github.mdelapenya.savagedicebot.model.TelegramFile;
+import com.github.mdelapenya.savagedicebot.model.TelegramUser;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import com.github.mdelapenya.savagedicebot.Utilities;
 
 public abstract class TelegramBot extends TelegramLongPollingBot {
 

@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import telegrambots.core.TelegramUser;
+import com.github.mdelapenya.savagedicebot.model.TelegramUser;
 
 public class BotInputParserTest {
 

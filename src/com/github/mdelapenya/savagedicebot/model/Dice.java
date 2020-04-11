@@ -1,4 +1,6 @@
-package com.github.mdelapenya.savagedicebot;
+package com.github.mdelapenya.savagedicebot.model;
+
+import com.github.mdelapenya.savagedicebot.LTBException;
 
 public class Dice {
 

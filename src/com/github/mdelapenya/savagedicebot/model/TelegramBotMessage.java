@@ -1,4 +1,7 @@
-package telegrambots.core;
+package com.github.mdelapenya.savagedicebot.model;
+
+import com.github.mdelapenya.savagedicebot.model.TelegramFile;
+import com.github.mdelapenya.savagedicebot.model.TelegramUser;
 
 import java.util.ArrayList;
 

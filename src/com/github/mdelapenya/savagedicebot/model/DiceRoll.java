@@ -1,4 +1,4 @@
-package com.github.mdelapenya.savagedicebot;
+package com.github.mdelapenya.savagedicebot.model;
 
 public class DiceRoll {
 

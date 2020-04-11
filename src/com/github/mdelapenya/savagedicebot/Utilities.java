@@ -1,4 +1,4 @@
-package telegrambots.core;
+package com.github.mdelapenya.savagedicebot;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

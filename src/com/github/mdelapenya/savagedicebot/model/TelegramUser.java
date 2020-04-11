@@ -1,4 +1,4 @@
-package telegrambots.core;
+package com.github.mdelapenya.savagedicebot.model;
 
 public class TelegramUser {
 

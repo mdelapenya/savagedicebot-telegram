@@ -1,11 +1,10 @@
-package com.github.mdelapenya.savagedicebot;
+package com.github.mdelapenya.savagedicebot.model;
 
+import com.github.mdelapenya.savagedicebot.BotInputParser;
 import io.github.cdimascio.dotenv.Dotenv;
 
-import telegrambots.core.TelegramBot;
-import telegrambots.core.TelegramBotListener;
-import telegrambots.core.TelegramBotMessage;
-import telegrambots.core.TelegramUser;
+import com.github.mdelapenya.savagedicebot.telegram.TelegramBot;
+import com.github.mdelapenya.savagedicebot.telegram.TelegramBotListener;
 
 public class SavageDiceBot extends TelegramBot implements TelegramBotListener {
 

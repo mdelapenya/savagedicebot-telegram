@@ -1,4 +1,4 @@
-package telegrambots.core;
+package com.github.mdelapenya.savagedicebot.model;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import org.telegram.telegrambots.api.objects.Document;
 import org.telegram.telegrambots.api.objects.PhotoSize;
 import org.telegram.telegrambots.api.objects.Update;
 import sun.misc.IOUtils;
+import com.github.mdelapenya.savagedicebot.telegram.TelegramBot;
 
 public class TelegramFile {
 

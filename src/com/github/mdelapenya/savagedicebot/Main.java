@@ -1,6 +1,7 @@
 package com.github.mdelapenya.savagedicebot;
 
-import telegrambots.core.TelegramBotStarter;
+import com.github.mdelapenya.savagedicebot.model.SavageDiceBot;
+import com.github.mdelapenya.savagedicebot.telegram.TelegramBotStarter;
 
 public class Main {
 
