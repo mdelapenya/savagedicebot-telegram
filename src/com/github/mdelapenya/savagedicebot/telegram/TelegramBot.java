@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import com.github.mdelapenya.savagedicebot.model.TelegramBotMessage;
 import com.github.mdelapenya.savagedicebot.model.TelegramFile;
 import com.github.mdelapenya.savagedicebot.model.TelegramUser;
+import com.github.mdelapenya.savagedicebot.Utilities;
+
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import com.github.mdelapenya.savagedicebot.Utilities;
 
 public abstract class TelegramBot extends TelegramLongPollingBot {
 
@@ -43,13 +44,13 @@ public abstract class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public final String getBotUsername() {
-        return this.botUsername;
+        return botUsername;
     }
     
     @Override
     public final String getBotToken()
     {
-        return this.botToken;
+        return botToken;
     }
 
     public void setTelegramBotListener(TelegramBotListener telegramBotListener) {
@@ -68,7 +69,7 @@ public abstract class TelegramBot extends TelegramLongPollingBot {
                     update.getMessage().getFrom().getUserName()
                 );
 
-                if(TelegramBot.this.telegramBotListener!= null && update.hasMessage()) {
+                if(telegramBotListener!= null && update.hasMessage()) {
                     if(update.getMessage().hasText()) {
                         message.setMessageText(update.getMessage().getText());
 
@@ -90,17 +91,17 @@ public abstract class TelegramBot extends TelegramLongPollingBot {
                         }
                     }
 
-                    if(TelegramBot.this.allowImages && update.getMessage().hasPhoto()) {
-                        message.setFiles(TelegramFile.getPhotos(TelegramBot.this, update));
+                    if(allowImages && update.getMessage().hasPhoto()) {
+                        message.setFiles(Utilities.getPhotos(this, update));
                     }
 
-                    if(TelegramBot.this.allowDocuments && update.getMessage().hasDocument()) {
+                    if(allowDocuments && update.getMessage().hasDocument()) {
                         ArrayList<TelegramFile> files = new ArrayList<>();
-                        files.add(TelegramFile.getDocument(TelegramBot.this, update));
+                        files.add(Utilities.getDocument(this, update));
                         message.setFiles(files);
                     }
 
-                    TelegramBot.this.telegramBotListener.receiveMessage(message);
+                    telegramBotListener.receiveMessage(message);
                 }
             }
             catch (Exception e) {
@@ -113,14 +114,14 @@ public abstract class TelegramBot extends TelegramLongPollingBot {
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public final void sendText(TelegramUser user, final String text) {
-        this.sendText(user.getId(), text);
+        sendText(user.getId(), text);
     }
     
     public final void sendText(final long chatId, final String text) {
         Thread thread = new Thread(() -> {
             try {
                 SendMessage message = new SendMessage().setParseMode("HTML").setChatId(chatId).setText(text);
-                TelegramBot.this.execute(message);
+                execute(message);
             } catch (Exception e) {
             }
         });
@@ -129,7 +130,7 @@ public abstract class TelegramBot extends TelegramLongPollingBot {
     }
     
     public final void sendImage(TelegramUser user, final Object imagePath, final String text) {
-        this.sendImage(user.getId(), imagePath, text);
+        sendImage(user.getId(), imagePath, text);
     }
     
     public final void sendImage(final long chatId, final Object imagePath, final String text) {
@@ -173,7 +174,7 @@ public abstract class TelegramBot extends TelegramLongPollingBot {
                     photo.setCaption(text);
                 }
 
-                TelegramBot.this.sendPhoto(photo);
+                sendPhoto(photo);
             } catch (Exception e) {
             }
         });
