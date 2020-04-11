@@ -28,6 +28,8 @@ public class Dice {
 
             if(formula.startsWith("d")) {
                 formula = "1" + formula;
+            } else {
+                throw new LTBException("Error en formula");
             }
 
             number = Integer.parseInt(formula.substring(0, formula.indexOf("d")));
