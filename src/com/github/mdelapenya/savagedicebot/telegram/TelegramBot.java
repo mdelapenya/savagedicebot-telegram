@@ -1,17 +1,13 @@
 package com.github.mdelapenya.savagedicebot.telegram;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 import com.github.mdelapenya.savagedicebot.model.TelegramBotMessage;
 import com.github.mdelapenya.savagedicebot.model.TelegramFile;
-import com.github.mdelapenya.savagedicebot.model.TelegramUser;
 import com.github.mdelapenya.savagedicebot.Utilities;
 
 import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
@@ -112,69 +108,11 @@ public abstract class TelegramBot extends TelegramLongPollingBot {
         thread.start();
     }
     
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public final void sendText(TelegramUser user, final String text) {
-        sendText(user.getId(), text);
-    }
-    
     public final void sendText(final long chatId, final String text) {
         Thread thread = new Thread(() -> {
             try {
                 SendMessage message = new SendMessage().setParseMode("HTML").setChatId(chatId).setText(text);
                 execute(message);
-            } catch (Exception e) {
-            }
-        });
-        
-        thread.start();
-    }
-    
-    public final void sendImage(TelegramUser user, final Object imagePath, final String text) {
-        sendImage(user.getId(), imagePath, text);
-    }
-    
-    public final void sendImage(final long chatId, final Object imagePath, final String text) {
-        Thread thread = new Thread(() -> {
-            try {
-                Object img = imagePath;
-
-                File imgPath = null;
-
-                if(img instanceof String) {
-                    String path = (String)img;
-
-                    if(path.toLowerCase().startsWith("http")) {
-                        img = new URL(path);
-                    } else {
-                        img = new File((String) img);
-                    }
-                }
-
-                if(img instanceof File) {
-                    imgPath = (File)img;
-                } else if(img instanceof URL) {
-                    URL url = (URL)img;
-
-                    String tempFile = TelegramBot.TEMP_DIR + "/" + Utilities.timeStamp();
-
-                    try(FileOutputStream fos = new FileOutputStream(tempFile)) {
-                        fos.write(Utilities.getURL(url.toString()));
-                    }
-
-                    imgPath = new File(tempFile);
-                }
-                else {
-                    return;
-                }
-
-
-                SendPhoto photo = new SendPhoto().setChatId(chatId).setNewPhoto(imgPath);
-
-                if(text != null) {
-                    photo.setCaption(text);
-                }
-
-                sendPhoto(photo);
             } catch (Exception e) {
             }
         });
