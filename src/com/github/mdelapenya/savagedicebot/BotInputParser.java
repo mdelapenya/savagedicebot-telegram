@@ -9,8 +9,8 @@ public class BotInputParser {
     private static final String VALID_CHARS = "0123456789des+-";
 
     public String parse(TelegramUser telegramUser, String text) {
-        if(text.endsWith("@LaTruchaBot")) {
-            text = text.substring(0, text.indexOf("@LaTruchaBot"));
+        if(text.endsWith("@SavageDiceBot")) {
+            text = text.substring(0, text.indexOf("@SavageDiceBot"));
         }
 
         text = text.toLowerCase();
@@ -28,7 +28,7 @@ public class BotInputParser {
         } else if(text.equals(HELP_COMMAND)) {
             StringBuilder sb = new StringBuilder(24);
 
-            sb.append("<b>LaTruchaBot - Ayuda</b>\r\n");
+            sb.append("<b>SavageDiceBot - Ayuda</b>\r\n");
             sb.append(" - Formato de dado: +/-NdC[e o sS]\r\n");
             sb.append("   · N: número de dados\r\n");
             sb.append("   · C: número de cara de los dados\r\n");

@@ -81,7 +81,7 @@ public class BotInputParserTest {
     public void testParseHelpCommand() {
         String result = parser.parse(user, BotInputParser.HELP_COMMAND);
 
-        Assert.assertTrue(result.contains("<b>LaTruchaBot - Ayuda</b>\r\n"));
+        Assert.assertTrue(result.contains("<b>SavageDiceBot - Ayuda</b>\r\n"));
         Assert.assertTrue(result.contains(" - Ejemplos:\r\n"));
         Assert.assertTrue(result.contains(" - Ejemplo: /d10s\r\n"));
         Assert.assertTrue(result.contains("Ejemplo de tirada compleja: /d 2d8 + 2d6e - 3d4s\r\n"));
