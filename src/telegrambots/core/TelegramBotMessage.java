@@ -2,8 +2,8 @@ package telegrambots.core;
 
 import java.util.ArrayList;
 
-public class TelegramBotMessage
-{
+public class TelegramBotMessage {
+
     private TelegramUser user;
     private long chatID;
     
@@ -22,8 +22,7 @@ public class TelegramBotMessage
         this.params = null;
     }
 
-    public TelegramUser getUser()
-    {
+    public TelegramUser getUser() {
         return user;
     }
 
@@ -63,23 +62,19 @@ public class TelegramBotMessage
         this.params = params;
     }
     
-    public boolean hashText()
-    {
+    public boolean hashText() {
         return this.messageText != null;
     }
     
-    public boolean isCommand()
-    {
+    public boolean isCommand() {
         return this.command != null;
     }
     
-    public boolean hashParams()
-    {
+    public boolean hashParams() {
         return (this.params != null && !params.isEmpty());
     }
     
-    public boolean hashFiles()
-    {
+    public boolean hashFiles() {
         return (this.files != null && !files.isEmpty());
     }
 
@@ -87,4 +82,5 @@ public class TelegramBotMessage
     public String toString() {
         return "TelegramBotMessage{" + "user=" + user + ", chatID=" + chatID + ", messageText=" + messageText + ", files=" + files + ", command=" + command + ", params=" + params + "}";
     }
+
 }

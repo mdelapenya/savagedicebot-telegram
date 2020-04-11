@@ -17,8 +17,7 @@ public class SavageDiceBot extends TelegramBot implements TelegramBotListener {
     }
     
     @Override
-    public void reciveMessage(TelegramBotMessage message)
-    {
+    public void reciveMessage(TelegramBotMessage message) {
         //System.out.println(message.getChatID() + " - " + message.getMessageText());
 
         long chatID = message.getChatID();

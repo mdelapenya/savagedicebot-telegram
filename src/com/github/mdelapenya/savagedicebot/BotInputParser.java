@@ -20,14 +20,11 @@ public class BotInputParser {
         if(usr == null) {
             if(telegramUser.getFirstName() != null && telegramUser.getLastName() != null) {
                 usr = telegramUser.getFirstName() + " " + telegramUser.getLastName();
-            }
-            else if(telegramUser.getFirstName() != null) {
+            } else if(telegramUser.getFirstName() != null) {
                 usr = telegramUser.getFirstName();
-            }
-            else if(telegramUser.getLastName() != null) {
+            } else if(telegramUser.getLastName() != null) {
                 usr = telegramUser.getLastName();
-            }
-            else {
+            } else {
                 usr = "Desconocido";
             }
         }
@@ -37,12 +34,10 @@ public class BotInputParser {
                 String res = this.parsearFormula(text.substring(3));
 
                 return "Resultado (" + usr + "): " + res;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 return "Error en tirada: " + text.substring(3);
             }
-        }
-        else if(text.equals(HELP_COMMAND)) {
+        } else if(text.equals(HELP_COMMAND)) {
             StringBuilder sb = new StringBuilder(24);
 
             sb.append("<b>LaTruchaBot - Ayuda</b>\r\n");
@@ -71,8 +66,7 @@ public class BotInputParser {
             sb.append("Ejemplo de tirada simple: /d10s8");
 
             return sb.toString();
-        }
-        else if(text.startsWith("/d")) {
+        } else if(text.startsWith("/d")) {
             try {
                 if(text.contains(" ")) {
                     throw new LTBException("Error en tirada: no se admiten espacios");
@@ -81,11 +75,9 @@ public class BotInputParser {
                 String res = this.parsearFormula(text.substring(1));
 
                 return "Resultado (" + usr + "): " + res;
-            }
-            catch (LTBException e) {
+            } catch (LTBException e) {
                 return e.getLocalizedMessage();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 return "Error en tirada: " + text.substring(1);
             }
         }
@@ -119,8 +111,7 @@ public class BotInputParser {
             DiceRoll diceRoll = new Dice(dice[0]).getDiceResult();
             text = text + " " + diceRoll.getDetail();
             return text + " = " + diceRoll.getResult();
-        }
-        else {
+        } else {
             int total = 0;
             for(String dado : dice) {
                 DiceRoll diceRoll = new Dice(dado).getDiceResult();

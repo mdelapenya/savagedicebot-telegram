@@ -9,8 +9,8 @@ import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
-public abstract class TelegramBot extends TelegramLongPollingBot
-{
+public abstract class TelegramBot extends TelegramLongPollingBot {
+
     public static String TEMP_DIR = null;
     
     private String botUsername;
@@ -20,10 +20,8 @@ public abstract class TelegramBot extends TelegramLongPollingBot
     private boolean allowImages;
     private boolean allowDocuments;
     
-    public TelegramBot(String botUsername, String botToken, boolean allowImages, boolean allowDocuments)
-    {
-        if(TelegramBot.TEMP_DIR == null)
-        {
+    public TelegramBot(String botUsername, String botToken, boolean allowImages, boolean allowDocuments) {
+        if(TelegramBot.TEMP_DIR == null) {
             String tempDir = System.getProperty("user.home") + "\\temp\\telegramBots";
             new File(tempDir).mkdirs();
             TelegramBot.TEMP_DIR = tempDir.replace("\\", "/");
@@ -39,8 +37,7 @@ public abstract class TelegramBot extends TelegramLongPollingBot
     }
 
     @Override
-    public final String getBotUsername()
-    {
+    public final String getBotUsername() {
         return this.botUsername;
     }
     
@@ -50,47 +47,38 @@ public abstract class TelegramBot extends TelegramLongPollingBot
         return this.botToken;
     }
 
-    public void setTelegramBotListener(TelegramBotListener telegramBotListener)
-    {
+    public void setTelegramBotListener(TelegramBotListener telegramBotListener) {
         this.telegramBotListener = telegramBotListener;
     }
 
     @Override
-    public final void onUpdateReceived(final Update update)
-    {
-        Thread thread = new Thread()
-        {
+    public final void onUpdateReceived(final Update update) {
+        Thread thread = new Thread() {
+
             @Override
-            public void run()
-            {
-                try
-                {
-                    TelegramBotMessage message = new TelegramBotMessage(update.getMessage().getFrom().getId(),
-                                                                        update.getMessage().getChatId(),
-                                                                        update.getMessage().getFrom().getFirstName(),
-                                                                        update.getMessage().getFrom().getLastName(),
-                                                                        update.getMessage().getFrom().getUserName());
+            public void run() {
+                try {
+                    TelegramBotMessage message = new TelegramBotMessage(
+                        update.getMessage().getFrom().getId(),
+                        update.getMessage().getChatId(),
+                        update.getMessage().getFrom().getFirstName(),
+                        update.getMessage().getFrom().getLastName(),
+                        update.getMessage().getFrom().getUserName()
+                    );
                     
-                    if(TelegramBot.this.telegramBotListener!= null && update.hasMessage())
-                    {
-                        if(update.getMessage().hasText())
-                        {
+                    if(TelegramBot.this.telegramBotListener!= null && update.hasMessage()) {
+                        if(update.getMessage().hasText()) {
                             message.setMessageText(update.getMessage().getText());
                             
-                            if(message.getMessageText().startsWith("/"))
-                            {
+                            if(message.getMessageText().startsWith("/")) {
                                 String data[] = message.getMessageText().split(" ");
                                 String cmd = null;
                                 ArrayList<String> params = new ArrayList<>();
 
-                                for(String dt : data)
-                                {
-                                    if(cmd == null)
-                                    {
+                                for(String dt : data) {
+                                    if(cmd == null) {
                                         cmd = dt;
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         params.add(dt);
                                     }
                                 }
@@ -100,13 +88,11 @@ public abstract class TelegramBot extends TelegramLongPollingBot
                             }
                         }
                         
-                        if(TelegramBot.this.allowImages && update.getMessage().hasPhoto())
-                        {
+                        if(TelegramBot.this.allowImages && update.getMessage().hasPhoto()) {
                             message.setFiles(TelegramFile.getPhotos(TelegramBot.this, update));
                         }
                         
-                        if(TelegramBot.this.allowDocuments && update.getMessage().hasDocument())
-                        {
+                        if(TelegramBot.this.allowDocuments && update.getMessage().hasDocument()) {
                             ArrayList<TelegramFile> files = new ArrayList<>();
                             files.add(TelegramFile.getDocument(TelegramBot.this, update));
                             message.setFiles(files);
@@ -115,8 +101,7 @@ public abstract class TelegramBot extends TelegramLongPollingBot
                         TelegramBot.this.telegramBotListener.reciveMessage(message);
                     }
                 }
-                catch (Exception e)
-                {
+                catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -126,25 +111,19 @@ public abstract class TelegramBot extends TelegramLongPollingBot
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public final void sendText(TelegramUser user, final String text)
-    {
+    public final void sendText(TelegramUser user, final String text) {
         this.sendText(user.getId(), text);
     }
     
-    public final void sendText(final long chatId, final String text)
-    {
-        Thread thread = new Thread()
-        {
+    public final void sendText(final long chatId, final String text) {
+        Thread thread = new Thread() {
+
             @Override
-            public void run()
-            {
-                try
-                {
+            public void run() {
+                try {
                     SendMessage message = new SendMessage().setParseMode("HTML").setChatId(chatId).setText(text);
                     TelegramBot.this.execute(message);
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                 }
             }
         };
@@ -152,54 +131,44 @@ public abstract class TelegramBot extends TelegramLongPollingBot
         thread.start();
     }
     
-    public final void sendImage(TelegramUser user, final Object imagePath, final String text)
-    {
+    public final void sendImage(TelegramUser user, final Object imagePath, final String text) {
         this.sendImage(user.getId(), imagePath, text);
     }
     
-    public final void sendImage(final long chatId, final Object imagePath, final String text)
-    {
-        Thread thread = new Thread()
-        {
+    public final void sendImage(final long chatId, final Object imagePath, final String text) {
+        Thread thread = new Thread() {
+
             @Override
-            public void run()
-            {
-                try
-                {
+            public void run() {
+                try {
                     Object img = imagePath;
                     
                     File imgPath = null;
                     
-                    if(img instanceof String)
-                    {
+                    if(img instanceof String) {
                         String path = (String)img;
                         
-                        if(path.toLowerCase().startsWith("http"))
+                        if(path.toLowerCase().startsWith("http")) {
                             img = new URL(path);
-                        else
-                            img = new File((String)img);
+                        } else {
+                            img = new File((String) img);
+                        }
                     }
                     
-                    
-                    if(img instanceof File)
-                    {
+                    if(img instanceof File) {
                         imgPath = (File)img;
-                    }
-                    else if(img instanceof URL)
-                    {
+                    } else if(img instanceof URL) {
                         URL url = (URL)img;
                         
                         String tempFile = TelegramBot.TEMP_DIR + "/" + Utilities.timeStamp();
                         
-                        try(FileOutputStream fos = new FileOutputStream(tempFile))
-                        {
+                        try(FileOutputStream fos = new FileOutputStream(tempFile)) {
                             fos.write(Utilities.getURL(url.toString()));
                         }
                         
                         imgPath = new File(tempFile);
                     }
-                    else
-                    {
+                    else {
                         return;
                     }
                     
@@ -211,13 +180,12 @@ public abstract class TelegramBot extends TelegramLongPollingBot
                     }
                     
                     TelegramBot.this.sendPhoto(photo);
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                 }
             }
         };
         
         thread.start();
     }
+
 }

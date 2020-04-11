@@ -1,6 +1,7 @@
 package telegrambots.core;
 
-public interface TelegramBotListener
-{
+public interface TelegramBotListener {
+
     public void reciveMessage(TelegramBotMessage message);
+
 }
