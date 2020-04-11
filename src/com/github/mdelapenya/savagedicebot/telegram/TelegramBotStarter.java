@@ -1,6 +1,5 @@
 package com.github.mdelapenya.savagedicebot.telegram;
 
-import com.github.mdelapenya.savagedicebot.telegram.TelegramBot;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 

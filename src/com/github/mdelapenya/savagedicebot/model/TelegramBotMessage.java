@@ -1,8 +1,5 @@
 package com.github.mdelapenya.savagedicebot.model;
 
-import com.github.mdelapenya.savagedicebot.model.TelegramFile;
-import com.github.mdelapenya.savagedicebot.model.TelegramUser;
-
 import java.util.ArrayList;
 
 public class TelegramBotMessage {
@@ -49,36 +46,12 @@ public class TelegramBotMessage {
         this.files = files;
     }
 
-    public String getCommand() {
-        return command;
-    }
-
     public void setCommand(String command) {
         this.command = command;
     }
 
-    public ArrayList<String> getParams() {
-        return params;
-    }
-
     public void setParams(ArrayList<String> params) {
         this.params = params;
-    }
-    
-    public boolean hashText() {
-        return this.messageText != null;
-    }
-    
-    public boolean isCommand() {
-        return this.command != null;
-    }
-    
-    public boolean hashParams() {
-        return (this.params != null && !params.isEmpty());
-    }
-    
-    public boolean hashFiles() {
-        return (this.files != null && !files.isEmpty());
     }
 
     @Override

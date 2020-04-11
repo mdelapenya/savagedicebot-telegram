@@ -20,30 +20,6 @@ public class TelegramFile {
         this.downloadFilePath = downloadFilePath;
         this.fileContent = fileContent;
     }
-
-    public String getFileId() {
-        return fileId;
-    }
-
-    public String getDownloadFilePath() {
-        return downloadFilePath;
-    }
-
-    public byte[] getFileContent() {
-        return fileContent;
-    }
-    
-    public String createFilePath(String dir) {
-        String res = dir.replace("\\", "/");
-        
-        if(!res.endsWith("/")) {
-            res = res + "/";
-        }
-        
-        res = res + this.getFileId() + "_" + this.getDownloadFilePath().replace("/", "_");
-        
-        return res;
-    }
     
     public static ArrayList<TelegramFile> getPhotos(TelegramBot bot, Update update) {
         ArrayList<TelegramFile> res = new ArrayList<>();
@@ -94,18 +70,6 @@ public class TelegramFile {
         } catch (Exception e) {
             return null;
         }
-    }
-    
-    public static TelegramFile getGreaterPhoto(ArrayList<TelegramFile> files) {
-        TelegramFile res = null;
-        
-        for (TelegramFile tf : files) {
-            if(res == null || res.getFileContent().length < tf.getFileContent().length) {
-                res = tf;
-            }
-        }
-        
-        return res;
     }
 
 }
