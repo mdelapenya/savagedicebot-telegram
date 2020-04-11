@@ -60,11 +60,7 @@ public class TelegramUser {
         
         final TelegramUser other = (TelegramUser) obj;
 
-        if (this.id != other.id) {
-            return false;
-        }
-
-        return true;
+        return id.equals(other.id);
     }
 
 }
