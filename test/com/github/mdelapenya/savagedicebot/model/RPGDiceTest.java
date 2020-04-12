@@ -8,6 +8,45 @@ import org.junit.runner.RunWith;
 @RunWith(Enclosed.class)
 public class RPGDiceTest {
 
+    public static class WhenValidatingFormula {
+
+        @Test
+        public void shouldReturnFormula() {
+            RPGDice d = RPGDice.parse("1d6");
+            Assert.assertNotNull(d);
+            Assert.assertEquals("+1d6", d.getFormula());
+        }
+
+        @Test
+        public void shouldReturnFormulaWithNegativeSign() {
+            RPGDice d = RPGDice.parse("-1d6");
+            Assert.assertNotNull(d);
+            Assert.assertEquals("-1d6", d.getFormula());
+        }
+
+        @Test
+        public void shouldReturnFormulaWithAdditionPositive() {
+            RPGDice d = RPGDice.parse("d6+5");
+            Assert.assertNotNull(d);
+            Assert.assertEquals("+1d6+5", d.getFormula());
+        }
+
+        @Test
+        public void shouldReturnFormulaWithAdditionNegative() {
+            RPGDice d = RPGDice.parse("d6-5");
+            Assert.assertNotNull(d);
+            Assert.assertEquals("+1d6-5", d.getFormula());
+        }
+
+        @Test
+        public void shouldReturnFormulaWithoutNumberOfDices() {
+            RPGDice d = RPGDice.parse("d6");
+            Assert.assertNotNull(d);
+            Assert.assertEquals("+1d6", d.getFormula());
+        }
+
+    }
+
     public static class WithSingleRoll {
 
         @Test
@@ -31,6 +70,19 @@ public class RPGDiceTest {
             Assert.assertEquals(d.getRolls(), 1);
             Assert.assertFalse(d.isExplodes());
             Assert.assertNull(d.getSavageDice());
+            Assert.assertTrue(d.isPositive());
+        }
+
+        @Test
+        public void shouldCreateDiceWithNegativeSign() {
+            RPGDice d = RPGDice.parse("-1d6");
+
+            Assert.assertNotNull(d);
+            Assert.assertEquals(d.getFaces(), 6);
+            Assert.assertEquals(d.getRolls(), 1);
+            Assert.assertFalse(d.isExplodes());
+            Assert.assertNull(d.getSavageDice());
+            Assert.assertFalse(d.isPositive());
         }
 
         @Test
@@ -66,6 +118,24 @@ public class RPGDiceTest {
         }
 
         @Test
+        public void shouldCreateDiceWithNegativeSignSavage() {
+            RPGDice d = RPGDice.parse("-1d6s");
+
+            Assert.assertNotNull(d);
+            Assert.assertEquals(d.getFaces(), 6);
+            Assert.assertEquals(d.getRolls(), 1);
+            Assert.assertFalse(d.isExplodes());
+            Assert.assertFalse(d.isPositive());
+
+            RPGDice savage = d.getSavageDice();
+            Assert.assertNotNull(savage);
+            Assert.assertEquals(savage.getFaces(), 6);
+            Assert.assertEquals(savage.getRolls(), 1);
+            Assert.assertTrue(savage.isExplodes());
+            Assert.assertTrue(savage.isPositive());
+        }
+
+        @Test
         public void shouldFailCreationWithoutRoll() {
             RPGDice d = RPGDice.parse("d6d");
             Assert.assertNull(d);
@@ -80,6 +150,31 @@ public class RPGDiceTest {
             Assert.assertEquals(d.getRolls(), 1);
             Assert.assertFalse(d.isExplodes());
             Assert.assertNull(d.getSavageDice());
+        }
+
+        @Test
+        public void shouldPrintDiceRoll() {
+            RPGDice d = RPGDice.parse("d6");
+
+            Assert.assertNotNull(d);
+
+            DiceRoll roll = d.getDiceResult();
+            Assert.assertTrue(roll.getDetail().startsWith("+1d6 ("));
+            Assert.assertFalse(roll.getDetail().contains(" + "));
+            Assert.assertTrue(roll.getDetail().contains(") = "));
+        }
+
+        @Test
+        public void shouldPrintDiceRollWithSavage() {
+            RPGDice d = RPGDice.parse("d6s");
+
+            Assert.assertNotNull(d);
+
+            DiceRoll roll = d.getDiceResult();
+            Assert.assertTrue(roll.getDetail().startsWith("+1d6 (["));
+            Assert.assertFalse(roll.getDetail().contains(" + "));
+            Assert.assertTrue(roll.getDetail().contains(" / savage(+1d6): "));
+            Assert.assertTrue(roll.getDetail().contains("]) = "));
         }
 
     }
@@ -128,6 +223,24 @@ public class RPGDiceTest {
             Assert.assertEquals(savage.getFaces(), 6);
             Assert.assertEquals(savage.getRolls(), 1);
             Assert.assertTrue(savage.isExplodes());
+        }
+
+        @Test
+        public void shouldCreateDiceExplodingWithNegativeSignAndSavage() {
+            RPGDice d = RPGDice.parse("-33d8es");
+
+            Assert.assertNotNull(d);
+            Assert.assertEquals(d.getFaces(), 8);
+            Assert.assertEquals(d.getRolls(), 33);
+            Assert.assertTrue(d.isExplodes());
+            Assert.assertFalse(d.isPositive());
+
+            RPGDice savage = d.getSavageDice();
+            Assert.assertNotNull(savage);
+            Assert.assertEquals(savage.getFaces(), 6);
+            Assert.assertEquals(savage.getRolls(), 1);
+            Assert.assertTrue(savage.isExplodes());
+            Assert.assertTrue(savage.isPositive());
         }
 
         @Test
@@ -180,6 +293,31 @@ public class RPGDiceTest {
             Assert.assertEquals(d.getAdditive(), 28);
             Assert.assertTrue(d.isExplodes());
             Assert.assertNull(d.getSavageDice());
+        }
+
+        @Test
+        public void shouldPrintDiceRoll() {
+            RPGDice d = RPGDice.parse("2d6");
+
+            Assert.assertNotNull(d);
+
+            DiceRoll roll = d.getDiceResult();
+            Assert.assertTrue(roll.getDetail().startsWith("+2d6 ("));
+            Assert.assertTrue(roll.getDetail().contains(" + "));
+            Assert.assertTrue(roll.getDetail().contains(") = "));
+        }
+
+        @Test
+        public void shouldPrintDiceRollWithSavage() {
+            RPGDice d = RPGDice.parse("2d6s");
+
+            Assert.assertNotNull(d);
+
+            DiceRoll roll = d.getDiceResult();
+            Assert.assertTrue(roll.getDetail().startsWith("+2d6 (["));
+            Assert.assertTrue(roll.getDetail().contains(" + "));
+            Assert.assertTrue(roll.getDetail().contains(" / savage(+1d6): "));
+            Assert.assertTrue(roll.getDetail().contains("]) = "));
         }
 
     }
