@@ -34,7 +34,7 @@ public abstract class TelegramBot extends TelegramLongPollingBot {
         this.allowImages = allowImages;
         this.allowDocuments = allowDocuments;
         this.telegramBotListener = null;
-        
+
         System.out.println("Starting " + botUsername);
     }
 
