@@ -6,6 +6,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.regex.Matcher;
 
 import com.github.mdelapenya.savagedicebot.model.TelegramFile;
 import com.github.mdelapenya.savagedicebot.telegram.TelegramBot;
@@ -18,6 +19,35 @@ import sun.misc.IOUtils;
 public class Utilities {
 
     private static String LAST_TIME_STAMP = "";
+
+    public static boolean isEmpty(String str) {
+        return str == null || str.trim().isEmpty();
+    }
+
+    public static Boolean getBoolean(Matcher matcher, String group, String expected) {
+        String groupValue = matcher.group(group);
+        return !isEmpty(groupValue) && groupValue.equalsIgnoreCase(expected);
+    }
+
+    public static Boolean getBooleanOrNull(Matcher matcher, String group, String expected) {
+        String groupValue = matcher.group(group);
+        return isEmpty(groupValue) || groupValue.equalsIgnoreCase(expected);
+    }
+
+    public static Integer getInt(Matcher matcher, String group, int defaultValue) {
+        String groupValue = matcher.group(group);
+        return isEmpty(groupValue) ? defaultValue : Integer.parseInt(groupValue);
+    }
+
+    public static Integer getSign(Matcher matcher, String group, String positiveValue) {
+        String groupValue = matcher.group(group);
+        return isEmpty(groupValue) || groupValue.equals(positiveValue) ? 1 : -1;
+    }
+
+    public static String getString(Matcher matcher, String group, String defaultValue) {
+        String groupValue = matcher.group(group);
+        return isEmpty(groupValue) ? defaultValue : groupValue;
+    }
 
     public static synchronized String timeStamp() {
         String formato = "yyyyMMddHHmmssSSS";

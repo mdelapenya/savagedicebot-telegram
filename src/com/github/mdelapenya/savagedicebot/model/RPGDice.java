@@ -1,5 +1,7 @@
 package com.github.mdelapenya.savagedicebot.model;
 
+import com.github.mdelapenya.savagedicebot.Utilities;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -93,30 +95,6 @@ public class RPGDice {
         return String.format("{\"rolls\": %s, \"faces\": %s, \"explodes\": %b, \"additive\": %s, \"savage\": %o}", rolls, faces, explodes, additive, savageDice);
     }
 
-    private static boolean isEmpty(String str) {
-        return str == null || str.trim().isEmpty();
-    }
-
-    private static Boolean getBoolean(Matcher matcher, String group, String expected) {
-        String groupValue = matcher.group(group);
-        return !isEmpty(groupValue) && groupValue.equalsIgnoreCase(expected);
-    }
-
-    private static Boolean getBooleanOrNull(Matcher matcher, String group, String expected) {
-        String groupValue = matcher.group(group);
-        return isEmpty(groupValue) || groupValue.equalsIgnoreCase(expected);
-    }
-
-    private static Integer getInt(Matcher matcher, String group, int defaultValue) {
-        String groupValue = matcher.group(group);
-        return isEmpty(groupValue) ? defaultValue : Integer.parseInt(groupValue);
-    }
-
-    private static Integer getSign(Matcher matcher, String group, String positiveValue) {
-        String groupValue = matcher.group(group);
-        return isEmpty(groupValue) || groupValue.equals(positiveValue) ? 1 : -1;
-    }
-
     public DiceRoll getDiceResult() {
         StringBuilder text = new StringBuilder(getFormula());
         int rollResult = 0;
@@ -170,13 +148,13 @@ public class RPGDice {
     public static RPGDice parse(String formula, int savageFaces) {
         Matcher matcher = DICE_PATTERN.matcher(formula);
         if(matcher.matches()) {
-            int rolls = getInt(matcher, "A", 1);
-            int faces = getInt(matcher, "B", -1);
-            int additive = getInt(matcher, "C", 0);
-            int additiveSign = getSign(matcher, "ADD", "+");
-            boolean explodes = getBoolean(matcher, "EXP", "e");
-            boolean savage = !getBoolean(matcher, "SAV", "!");
-            boolean positive = getBooleanOrNull(matcher, "SIGN", "+");
+            int rolls = Utilities.getInt(matcher, "A", 1);
+            int faces = Utilities.getInt(matcher, "B", -1);
+            int additive = Utilities.getInt(matcher, "C", 0);
+            int additiveSign = Utilities.getSign(matcher, "ADD", "+");
+            boolean explodes = Utilities.getBoolean(matcher, "EXP", "e");
+            boolean savage = !Utilities.getBoolean(matcher, "SAV", "!");
+            boolean positive = Utilities.getBooleanOrNull(matcher, "SIGN", "+");
 
             return new RPGDice(rolls, faces, additive * additiveSign, explodes, savage, savageFaces, positive);
         }
