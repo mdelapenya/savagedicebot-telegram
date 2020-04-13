@@ -83,8 +83,8 @@ public class BotInputParserTest {
 
         Assert.assertTrue(result.contains("<b>SavageDiceBot - Ayuda</b>\r\n"));
         Assert.assertTrue(result.contains(" - Ejemplos:\r\n"));
-        Assert.assertTrue(result.contains(" - Ejemplo: /d10s\r\n"));
-        Assert.assertTrue(result.contains("Ejemplo de tirada compleja: /d 2d8 +2d6e -3d4s\r\n"));
+        Assert.assertTrue(result.contains(" - Ejemplo: /d10\r\n"));
+        Assert.assertTrue(result.contains("Ejemplo de tirada compleja: /d 2d8 +2d6e -3d4\r\n"));
     }
 
     @Test

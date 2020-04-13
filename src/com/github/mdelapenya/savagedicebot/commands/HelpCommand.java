@@ -23,7 +23,7 @@ public class HelpCommand implements SavageDiceBotCommand {
         sb.append("Si solo se va a lanzar un dado no es necesario añadir el 1.\r\n");
         sb.append(" - Ejemplo: 1d8s  =  d8s\r\n");
         sb.append("Se puede realizar una tirada simple de forma directa.\r\n");
-        sb.append(" - Ejemplo: /d10s\r\n");
+        sb.append(" - Ejemplo: /d10\r\n");
         sb.append("\r\n");
         sb.append("Ejemplo de tirada compleja: /d 2d8 +2d6e -3d4\r\n");
         sb.append("Ejemplo de tirada simple: /d10");
