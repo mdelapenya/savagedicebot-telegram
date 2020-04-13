@@ -1,4 +1,8 @@
 # SavageDiceBot
+
+![Master Branch](https://github.com/mdelapenya/savagedicebot-telegram/workflows/Pushes%20to%20master/badge.svg?branch=master)
+[![codecov](https://codecov.io/gh/mdelapenya/savagedicebot-telegram/branch/master/graph/badge.svg)](https://codecov.io/gh/mdelapenya/savagedicebot-telegram)
+
 This Telegram bot allows rolling one or more savage worlds RPG dice.
 
 ## Building the project
