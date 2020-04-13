@@ -91,7 +91,7 @@ public class BotInputParserTest {
     public void testParseWrongCommand() {
         String result = parser.parse(user, "this command is not valid");
 
-        Assert.assertNull(result);
+        Assert.assertEquals("Command not valid: this command is not valid\nPlease use the " + BotInputParser.HELP_COMMAND + " command", result);
     }
 
 }

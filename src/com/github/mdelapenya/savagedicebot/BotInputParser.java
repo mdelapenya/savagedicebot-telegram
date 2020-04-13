@@ -10,7 +10,7 @@ import java.util.List;
 public class BotInputParser {
 
     public static final String COMPLEX_ROLL_COMMAND = "/d ";
-    public static final String HELP_COMMAND = "/dhelp";
+    public static final String HELP_COMMAND = "/help";
     private static final String VALID_CHARS = "0123456789des+-";
 
     public String parse(TelegramUser telegramUser, String text) {
@@ -75,7 +75,7 @@ public class BotInputParser {
             }
         }
 
-        return null;
+        return "Command not valid: " + text + "\nPlease use the " + HELP_COMMAND + " command";
     }
 
     protected String checkUser(TelegramUser telegramUser) {
@@ -113,13 +113,13 @@ public class BotInputParser {
            dice .add(d);
         }
 
-        if (dice.size() == 1) {
+        if (dice.size() == 10000) {
             DiceRoll diceRoll = dice.get(0).getDiceResult();
 
             return diceRoll.getDetail() + " = " + diceRoll.getResult();
         }
 
-        String text = "";
+        String text = String.format("%0" + dice.size() + "d", 0).replace("0", "🎲");
         int total = 0;
         for (RPGDice die : dice) {
             DiceRoll diceRoll = die.getDiceResult();
