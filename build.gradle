@@ -1,10 +1,14 @@
 apply plugin: 'application'
 apply plugin: 'idea'
+apply plugin: 'jacoco'
 apply plugin: 'java'
 
 application {
     mainClassName = 'com.github.mdelapenya.savagedicebot.Main'
 }
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -41,3 +45,11 @@ dependencies {
     compile group: 'io.github.cdimascio', name: 'java-dotenv', version: '3.0.0'
     compile group: 'org.telegram', name: 'telegrambots', version: '3.5'
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+check.dependsOn jacocoTestReport
