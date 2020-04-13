@@ -51,7 +51,7 @@ public class BotInputParserTest {
 
     @Test
     public void testParseDiceRollComplex() {
-        String result = parser.parse(user, BotInputParser.COMPLEX_ROLL_COMMAND + "2d8 + 1d4");
+        String result = parser.parse(user, BotInputParser.COMPLEX_ROLL_COMMAND + "2d8 +1d4");
         Assert.assertTrue(result.contains("Resultado (mdelapenya):"));
         Assert.assertTrue(result.contains("+2d8 ("));
         Assert.assertTrue(result.contains("+1d4 ("));
@@ -60,10 +60,10 @@ public class BotInputParserTest {
     @Test
     public void testParseDiceIncludingWrongCharsReturnsError() {
         String result = parser.parse(user, "/d4x");
-        Assert.assertEquals("No se admite 'x' en la fórmula", result);
+        Assert.assertEquals("No se admite 'd4x' como fórmula", result);
 
         result = parser.parse(user, "/d4*");
-        Assert.assertEquals("No se admite '*' en la fórmula", result);
+        Assert.assertEquals("No se admite 'd4*' como fórmula", result);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class BotInputParserTest {
         Assert.assertTrue(result.contains("<b>SavageDiceBot - Ayuda</b>\r\n"));
         Assert.assertTrue(result.contains(" - Ejemplos:\r\n"));
         Assert.assertTrue(result.contains(" - Ejemplo: /d10s\r\n"));
-        Assert.assertTrue(result.contains("Ejemplo de tirada compleja: /d 2d8 + 2d6e - 3d4s\r\n"));
+        Assert.assertTrue(result.contains("Ejemplo de tirada compleja: /d 2d8 +2d6e -3d4s\r\n"));
     }
 
     @Test

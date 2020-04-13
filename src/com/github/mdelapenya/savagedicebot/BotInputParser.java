@@ -1,8 +1,11 @@
 package com.github.mdelapenya.savagedicebot;
 
-import com.github.mdelapenya.savagedicebot.model.Dice;
 import com.github.mdelapenya.savagedicebot.model.DiceRoll;
+import com.github.mdelapenya.savagedicebot.model.RPGDice;
 import com.github.mdelapenya.savagedicebot.model.TelegramUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BotInputParser {
 
@@ -42,7 +45,7 @@ public class BotInputParser {
             sb.append("   · /d +1d6e: 1 dado de 6 que puede explotar\r\n");
             sb.append("   · /d +1d8s6: 1 dado de 8 y 1 dado de 6 salvaje (ambos explotan)\r\n");
             sb.append("Se pueden sumar o restar varios dados en una misma tirada:\r\n");
-            sb.append(" - Ejemplo: +2d8 - 2d4e\r\n");
+            sb.append(" - Ejemplo: +2d8 -2d4e\r\n");
             sb.append("Si se va realizar una tirada con dado salvaje d6 no es necesario añadir el 6.\r\n");
             sb.append(" - Ejemplo: +1d8s  =  +1d8s6\r\n");
             sb.append("Si el primer dado de la tirada es para sumar no es neceario añadir el +.\r\n");
@@ -52,7 +55,7 @@ public class BotInputParser {
             sb.append("Se puede realizar una tirada simple de forma directa.\r\n");
             sb.append(" - Ejemplo: /d10s\r\n");
             sb.append("\r\n");
-            sb.append("Ejemplo de tirada compleja: /d 2d8 + 2d6e - 3d4s\r\n");
+            sb.append("Ejemplo de tirada compleja: /d 2d8 +2d6e -3d4s\r\n");
             sb.append("Ejemplo de tirada simple: /d10s8");
 
             return sb.toString();
@@ -98,42 +101,34 @@ public class BotInputParser {
     }
 
     protected String parseFormula(String formula) throws Exception {
-        formula = formula.toLowerCase().replace(" ", "");
+        List<RPGDice> dice = new ArrayList<>();
 
-        for(char ch : formula.toCharArray()) {
-            if(this.VALID_CHARS.indexOf(ch) < 0) {
-                throw new LTBException("No se admite '" + new String(new char[]{ch}) + "' en la fórmula");
-            }
+        String[] formulas = formula.split(" ");
+        for (String f : formulas) {
+           RPGDice d = RPGDice.parse(f);
+           if (d == null) {
+               throw new LTBException("No se admite '" + f + "' como fórmula");
+           }
+
+           dice .add(d);
         }
 
-        if(!formula.startsWith("+") && !formula.startsWith("-")) {
-            formula = "+" + formula;
+        if (dice.size() == 1) {
+            DiceRoll diceRoll = dice.get(0).getDiceResult();
+
+            return diceRoll.getDetail() + " = " + diceRoll.getResult();
         }
-
-        formula = formula.replace("+", ";+");
-        formula = formula.replace("-", ";-");
-
-        formula = formula.substring(1);
-
-        String[] dice = formula.split(";");
 
         String text = "";
+        int total = 0;
+        for (RPGDice die : dice) {
+            DiceRoll diceRoll = die.getDiceResult();
+            text = text + "\r\n" + diceRoll.getDetail();
 
-        if(dice.length == 1) {
-            DiceRoll diceRoll = new Dice(dice[0]).getDiceResult();
-            text = text + " " + diceRoll.getDetail();
-            return text + " = " + diceRoll.getResult();
-        } else {
-            int total = 0;
-            for(String dado : dice) {
-                DiceRoll diceRoll = new Dice(dado).getDiceResult();
-                text = text + "\r\n" + diceRoll.getDetail();
-
-                total += diceRoll.getResult();
-            }
-
-            return text + "\r\nTotal: " + total;
+            total += diceRoll.getResult();
         }
+
+        return text + "\r\nTotal: " + total;
     }
 
 }
