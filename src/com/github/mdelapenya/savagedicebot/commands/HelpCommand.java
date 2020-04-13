@@ -1,10 +1,22 @@
 package com.github.mdelapenya.savagedicebot.commands;
 
 public class HelpCommand implements SavageDiceBotCommand {
+
+    private String header;
+
+    public HelpCommand() {
+        this.header = "";
+    }
+
+    public HelpCommand(String header) {
+        this.header = header + "\r\n\n";
+    }
+
     @Override
     public String execute() {
-        StringBuilder sb = new StringBuilder(24);
+        StringBuilder sb = new StringBuilder(25);
 
+        sb.append(header);
         sb.append("🎲<b>SavageDiceBot - Help</b>🎲\r\n");
         sb.append("\nFormat: [+|-][!]NdF[e]\r\n");
         sb.append("\t· !: this 🎲 does not adds a savage 🎲 (optional, default true)\r\n");

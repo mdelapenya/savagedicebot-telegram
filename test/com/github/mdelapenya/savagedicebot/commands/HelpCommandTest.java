@@ -15,4 +15,15 @@ public class HelpCommandTest {
         Assert.assertTrue(result.contains("\t· /roll 2d8 2d6e -3d4\r\n"));
     }
 
+    @Test
+    public void testParseHelpCommandIncludingHeader() {
+        String result = new HelpCommand("This is a header").execute();
+
+        Assert.assertTrue(result.contains("This is a header\r\n\n"));
+        Assert.assertTrue(result.contains("🎲<b>SavageDiceBot - Help</b>🎲\r\n"));
+        Assert.assertTrue(result.contains("\nExamples:\r\n"));
+        Assert.assertTrue(result.contains("\t· /roll +1d6e: one exploding d6\r\n"));
+        Assert.assertTrue(result.contains("\t· /roll 2d8 2d6e -3d4\r\n"));
+    }
+
 }
