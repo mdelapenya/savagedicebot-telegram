@@ -11,6 +11,8 @@ The project uses a Gradle wrapper, so it's required to install the following bui
 - Java JDK 8 or above
 - An Java-based IDE, such as IntelliJ
 
+To connect to Telegram APIs you will need a valid token, please create a `.env` file at the root directory of your project (is excluded by Git), it will be used to communicate with Telegram. Please see [sample.env](./sample.env).
+
 ### Compiling the project
 - Linux or Mac:
 ```shell
