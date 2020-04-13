@@ -12,7 +12,6 @@ public class BotInputParser {
 
     public static final String COMPLEX_ROLL_COMMAND = "/d ";
     public static final String HELP_COMMAND = "/help";
-    private static final String VALID_CHARS = "0123456789des+-";
 
     public String parse(TelegramUser telegramUser, String text) {
         if(text.endsWith("@SavageDiceBot")) {
