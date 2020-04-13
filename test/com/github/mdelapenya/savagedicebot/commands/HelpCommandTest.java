@@ -25,6 +25,7 @@ public class HelpCommandTest {
         Assert.assertTrue(result.contains("\t· /roll +1d6e: one exploding d6\r\n"));
         Assert.assertTrue(result.contains("Example: /roll4 +1d8: one d8 using d4 as the savage 🎲\r\n"));
         Assert.assertTrue(result.contains("\t· /roll 2d8 2d6e -3d4\r\n"));
+        Assert.assertTrue(result.contains("\t· /roll8 2d8 2d6e -3d4\r\n"));
     }
 
 }

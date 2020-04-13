@@ -40,7 +40,8 @@ public class HelpCommand implements SavageDiceBotCommand {
         sb.append("Example: 1d8s  =>  d8s\r\n");
         sb.append("\nComplex Examples:\r\n");
         sb.append("\t· /roll 2d8 2d6e -3d4\r\n");
-        sb.append("\t· /rollx 8 2d8 2d6e -3d4");
+        sb.append("\t· /roll8 2d8 2d6e -3d4\r\n");
+        sb.append("\t· /roll10 2d8 2d6e -3d4");
 
         return sb.toString();
     }
