@@ -1,12 +1,10 @@
 package com.github.mdelapenya.savagedicebot;
 
+import com.github.mdelapenya.savagedicebot.commands.ComplexCommand;
 import com.github.mdelapenya.savagedicebot.commands.HelpCommand;
-import com.github.mdelapenya.savagedicebot.model.DiceRoll;
-import com.github.mdelapenya.savagedicebot.model.RPGDice;
+import com.github.mdelapenya.savagedicebot.commands.SimpleCommand;
+import com.github.mdelapenya.savagedicebot.commands.WrongCommand;
 import com.github.mdelapenya.savagedicebot.model.TelegramUser;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BotInputParser {
 
@@ -24,9 +22,7 @@ public class BotInputParser {
 
         if(text.startsWith(COMPLEX_ROLL_COMMAND)) {
             try {
-                String res = parseFormula(text.substring(3));
-
-                return "Resultado (" + usr + "): " + res;
+                return new ComplexCommand(usr, text).execute();
             } catch (Exception e) {
                 return "Error en tirada: " + text.substring(3);
             }
@@ -34,13 +30,7 @@ public class BotInputParser {
             return new HelpCommand().execute();
         } else if(text.startsWith("/d")) {
             try {
-                if(text.contains(" ")) {
-                    throw new LTBException("Error en tirada: no se admiten espacios");
-                }
-
-                String res = parseFormula(text.substring(1));
-
-                return "Resultado (" + usr + "): " + res;
+                return new SimpleCommand(usr, text).execute();
             } catch (LTBException e) {
                 return e.getLocalizedMessage();
             } catch (Exception e) {
@@ -48,7 +38,7 @@ public class BotInputParser {
             }
         }
 
-        return "Command not valid: " + text + "\nPlease use the " + HELP_COMMAND + " command";
+        return new WrongCommand(text).execute();
     }
 
     protected String checkUser(TelegramUser telegramUser) {
@@ -71,37 +61,6 @@ public class BotInputParser {
         }
 
         return "Desconocido";
-    }
-
-    protected String parseFormula(String formula) throws Exception {
-        List<RPGDice> dice = new ArrayList<>();
-
-        String[] formulas = formula.split(" ");
-        for (String f : formulas) {
-           RPGDice d = RPGDice.parse(f);
-           if (d == null) {
-               throw new LTBException("No se admite '" + f + "' como fórmula");
-           }
-
-           dice .add(d);
-        }
-
-        if (dice.size() == 10000) {
-            DiceRoll diceRoll = dice.get(0).getDiceResult();
-
-            return diceRoll.getDetail() + " = " + diceRoll.getResult();
-        }
-
-        String text = String.format("%0" + dice.size() + "d", 0).replace("0", "🎲");
-        int total = 0;
-        for (RPGDice die : dice) {
-            DiceRoll diceRoll = die.getDiceResult();
-            text = text + "\r\n" + diceRoll.getDetail();
-
-            total += diceRoll.getResult();
-        }
-
-        return text + "\r\nTotal: " + total;
     }
 
 }

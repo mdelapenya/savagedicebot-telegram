@@ -49,49 +49,4 @@ public class BotInputParserTest {
         Assert.assertEquals("Desconocido", result);
     }
 
-    @Test
-    public void testParseDiceRollComplex() {
-        String result = parser.parse(user, BotInputParser.COMPLEX_ROLL_COMMAND + "2d8 +1d4");
-        Assert.assertTrue(result.contains("Resultado (mdelapenya):"));
-        Assert.assertTrue(result.contains("+2d8 ("));
-        Assert.assertTrue(result.contains("+1d4 ("));
-    }
-
-    @Test
-    public void testParseDiceIncludingWrongCharsReturnsError() {
-        String result = parser.parse(user, "/d4x");
-        Assert.assertEquals("No se admite 'd4x' como fórmula", result);
-
-        result = parser.parse(user, "/d4*");
-        Assert.assertEquals("No se admite 'd4*' como fórmula", result);
-    }
-
-    @Test
-    public void testParseDiceIncludingSpacesReturnsError() {
-        String expected = "Error en tirada: no se admiten espacios";
-
-        String result = parser.parse(user, "/d4 ");
-        Assert.assertEquals(expected, result);
-
-        result = parser.parse(user, "/d4 is not valid");
-        Assert.assertEquals(expected, result);
-    }
-
-    @Test
-    public void testParseHelpCommand() {
-        String result = parser.parse(user, BotInputParser.HELP_COMMAND);
-
-        Assert.assertTrue(result.contains("<b>SavageDiceBot - Ayuda</b>\r\n"));
-        Assert.assertTrue(result.contains(" - Ejemplos:\r\n"));
-        Assert.assertTrue(result.contains(" - Ejemplo: /d10\r\n"));
-        Assert.assertTrue(result.contains("Ejemplo de tirada compleja: /d 2d8 +2d6e -3d4\r\n"));
-    }
-
-    @Test
-    public void testParseWrongCommand() {
-        String result = parser.parse(user, "this command is not valid");
-
-        Assert.assertEquals("Command not valid: this command is not valid\nPlease use the " + BotInputParser.HELP_COMMAND + " command", result);
-    }
-
 }
