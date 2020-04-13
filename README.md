@@ -1,14 +1,14 @@
 # SavageDiceBot
-Este bot sirve para devolver el resultado de la tirada de uno o varios dados, y enviarlo a Telegram en un bot.
+This Telegram bot allows rolling one or more savage worlds RPG dice.
 
-## Construcción del proyecto
-El proyecto usa gradle, en particular su wrapper, por lo que para construirlo será necesario tener disponibles las siguientes dependencias:
+## Building the project
+The project uses a Gradle wrapper, so it's required to install the following build dependencies:
 
-- Java JDK 8 o superior
-- Netbeans o IntelliJ
+- Java JDK 8 or above
+- An Java-based IDE, such as IntelliJ
 
-### Para compilar el proyecto:
-- En linux o Mac:
+### Compiling the project
+- Linux or Mac:
 ```shell
 $ ./gradlew compileJava
 ```
@@ -17,8 +17,8 @@ $ ./gradlew compileJava
 $ ./gradlew.bat compileJava
 ```
 
-### Para empaquetar proyecto:
-- En linux o Mac:
+### Packaging:
+- Linux or Mac:
 ```shell
 $ ./gradlew jar
 ```
@@ -26,12 +26,13 @@ $ ./gradlew jar
 ```shell
 $ ./gradlew.bat jar
 ```
-El resultado será un archivo .JAR en el directorio `build/libs` del proyecto. (este dirctorio está ignorado en git)
 
-## Ejecución de los tests
-En el directorio `test` están los test unitarios, que se ejecutan sin invocar la red.
+The result will be a .JAR file located in the `build/libs` directory (ignored by Git)
 
-- En linux o Mac:
+## Test execution
+Unit tests are located under the `test` directory:
+
+- Linux or Mac:
 ```shell
 $ ./gradlew test
 ```
