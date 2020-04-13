@@ -1,0 +1,16 @@
+name: Pushes to master
+on: [push]
+jobs:
+  pushes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 8
+      - name: Run Tests
+        run: chmod u+x ./gradlew && ./gradlew check
+      - name: Upload coverage to Codecov
+        run: bash <(curl -s https://codecov.io/bash)
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
