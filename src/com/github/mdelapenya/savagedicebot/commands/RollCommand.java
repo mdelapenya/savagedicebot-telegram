@@ -18,9 +18,13 @@ public class RollCommand implements SavageDiceBotCommand {
 
     @Override
     public String execute() {
-        String res = parseFormula(this.text.substring(6), this.savageFaces);
+        try {
+            String res = parseFormula(this.text.substring(6), this.savageFaces);
 
-        return "Resultado (" + this.usr + "): " + res;
+            return "Resultado (" + this.usr + "): " + res;
+        } catch (Exception e) {
+            return "Error en tirada: " + text.substring(6);
+        }
     }
 
 }

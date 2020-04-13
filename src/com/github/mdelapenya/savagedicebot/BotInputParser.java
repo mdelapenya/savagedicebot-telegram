@@ -20,11 +20,7 @@ public class BotInputParser {
         String usr = checkUser(telegramUser);
 
         if(text.startsWith(DEFAULT_ROLL_COMMAND)) {
-            try {
-                return new RollCommand(usr, text).execute();
-            } catch (Exception e) {
-                return "Error en tirada: " + text.substring(6);
-            }
+            return new RollCommand(usr, text).execute();
         } else if(text.equals(HELP_COMMAND)) {
             return new HelpCommand().execute();
         }
