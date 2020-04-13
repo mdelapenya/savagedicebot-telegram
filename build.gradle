@@ -23,6 +23,8 @@ jar {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.10+'
     compile group: 'io.github.cdimascio', name: 'java-dotenv', version: '3.0.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.1'
     compile group: 'org.telegram', name: 'telegrambots', version: '3.5'
 }
 

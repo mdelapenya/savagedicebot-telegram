@@ -7,11 +7,15 @@ import com.github.mdelapenya.savagedicebot.model.TelegramBotMessage;
 import com.github.mdelapenya.savagedicebot.model.TelegramFile;
 import com.github.mdelapenya.savagedicebot.Utilities;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 public abstract class TelegramBot extends TelegramLongPollingBot {
+    static final Logger logger = LogManager.getLogger(TelegramBot.class.getName());
 
     public static String TEMP_DIR = null;
     
@@ -35,7 +39,7 @@ public abstract class TelegramBot extends TelegramLongPollingBot {
         this.allowDocuments = allowDocuments;
         this.telegramBotListener = null;
 
-        System.out.println("Starting " + botUsername);
+        logger.info("Starting " + botUsername);
     }
 
     @Override
