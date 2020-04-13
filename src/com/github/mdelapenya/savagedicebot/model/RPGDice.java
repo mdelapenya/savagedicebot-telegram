@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class RPGDice {
 
     private static final Pattern DICE_PATTERN = Pattern.compile(
-        "(?>(?<SIGN>[+-]))?(?<A>\\d*)d(?<B>\\d+)(?>(?<EXP>e))?(?>(?<SAV>s))?(?>(?<ADD>[+-])(?<C>\\d+))?");
+        "(?>(?<SIGN>[+-]))?(?>(?<SAV>!))?(?<A>\\d*)d(?<B>\\d+)(?>(?<EXP>e))?(?>(?<ADD>[+-])(?<C>\\d+))?");
 
     private int rolls;
     private int faces;
@@ -155,7 +155,7 @@ public class RPGDice {
             int additive = getInt(matcher, "C", 0);
             int additiveSign = getSign(matcher, "ADD", "+");
             boolean explodes = getBoolean(matcher, "EXP", "e");
-            boolean savage = getBoolean(matcher, "SAV", "s");
+            boolean savage = !getBoolean(matcher, "SAV", "!");
             boolean positive = getBooleanOrNull(matcher, "SIGN", "+");
 
             return new RPGDice(rolls, faces, additive * additiveSign, explodes, savage, positive);

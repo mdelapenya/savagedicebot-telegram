@@ -69,7 +69,7 @@ public class RPGDiceTest {
             Assert.assertEquals(d.getFaces(), 6);
             Assert.assertEquals(d.getRolls(), 1);
             Assert.assertFalse(d.isExplodes());
-            Assert.assertNull(d.getSavageDice());
+            Assert.assertNotNull(d.getSavageDice());
             Assert.assertTrue(d.isPositive());
         }
 
@@ -81,13 +81,13 @@ public class RPGDiceTest {
             Assert.assertEquals(d.getFaces(), 6);
             Assert.assertEquals(d.getRolls(), 1);
             Assert.assertFalse(d.isExplodes());
-            Assert.assertNull(d.getSavageDice());
+            Assert.assertNotNull(d.getSavageDice());
             Assert.assertFalse(d.isPositive());
         }
 
         @Test
         public void shouldCreateDiceExplodingWithSavage() {
-            RPGDice d = RPGDice.parse("1d6es");
+            RPGDice d = RPGDice.parse("1d6e");
 
             Assert.assertNotNull(d);
             Assert.assertEquals(d.getFaces(), 6);
@@ -103,7 +103,7 @@ public class RPGDiceTest {
 
         @Test
         public void shouldCreateDiceWithSavage() {
-            RPGDice d = RPGDice.parse("1d6s");
+            RPGDice d = RPGDice.parse("1d6");
 
             Assert.assertNotNull(d);
             Assert.assertEquals(d.getFaces(), 6);
@@ -119,7 +119,7 @@ public class RPGDiceTest {
 
         @Test
         public void shouldCreateDiceWithNegativeSignSavage() {
-            RPGDice d = RPGDice.parse("-1d6s");
+            RPGDice d = RPGDice.parse("-1d6");
 
             Assert.assertNotNull(d);
             Assert.assertEquals(d.getFaces(), 6);
@@ -149,7 +149,7 @@ public class RPGDiceTest {
             Assert.assertEquals(d.getFaces(), 6);
             Assert.assertEquals(d.getRolls(), 1);
             Assert.assertFalse(d.isExplodes());
-            Assert.assertNull(d.getSavageDice());
+            Assert.assertNotNull(d.getSavageDice());
         }
 
         @Test
@@ -166,7 +166,7 @@ public class RPGDiceTest {
 
         @Test
         public void shouldPrintDiceRollWithSavage() {
-            RPGDice d = RPGDice.parse("d6s");
+            RPGDice d = RPGDice.parse("d6");
 
             Assert.assertNotNull(d);
 
@@ -195,7 +195,7 @@ public class RPGDiceTest {
             Assert.assertEquals(d.getFaces(), 8);
             Assert.assertEquals(d.getRolls(), 33);
             Assert.assertFalse(d.isExplodes());
-            Assert.assertNull(d.getSavageDice());
+            Assert.assertNotNull(d.getSavageDice());
         }
 
         @Test
@@ -206,12 +206,12 @@ public class RPGDiceTest {
             Assert.assertEquals(d.getFaces(), 8);
             Assert.assertEquals(d.getRolls(), 33);
             Assert.assertTrue(d.isExplodes());
-            Assert.assertNull(d.getSavageDice());
+            Assert.assertNotNull(d.getSavageDice());
         }
 
         @Test
         public void shouldCreateDiceExplodingWithSavage() {
-            RPGDice d = RPGDice.parse("33d8es");
+            RPGDice d = RPGDice.parse("33d8e");
 
             Assert.assertNotNull(d);
             Assert.assertEquals(d.getFaces(), 8);
@@ -227,7 +227,7 @@ public class RPGDiceTest {
 
         @Test
         public void shouldCreateDiceExplodingWithNegativeSignAndSavage() {
-            RPGDice d = RPGDice.parse("-33d8es");
+            RPGDice d = RPGDice.parse("-33d8e");
 
             Assert.assertNotNull(d);
             Assert.assertEquals(d.getFaces(), 8);
@@ -245,12 +245,13 @@ public class RPGDiceTest {
 
         @Test
         public void shouldCreateDiceWithSavage() {
-            RPGDice d = RPGDice.parse("33d8s");
+            RPGDice d = RPGDice.parse("33d8");
 
             Assert.assertNotNull(d);
             Assert.assertEquals(d.getFaces(), 8);
             Assert.assertEquals(d.getRolls(), 33);
             Assert.assertFalse(d.isExplodes());
+            Assert.assertTrue(d.hasSavageDice());
 
             RPGDice savage = d.getSavageDice();
             Assert.assertNotNull(savage);
@@ -280,7 +281,7 @@ public class RPGDiceTest {
             Assert.assertEquals(d.getRolls(), 33);
             Assert.assertEquals(d.getAdditive(), 28);
             Assert.assertFalse(d.isExplodes());
-            Assert.assertNull(d.getSavageDice());
+            Assert.assertNotNull(d.getSavageDice());
         }
 
         @Test
@@ -292,7 +293,7 @@ public class RPGDiceTest {
             Assert.assertEquals(d.getRolls(), 33);
             Assert.assertEquals(d.getAdditive(), 28);
             Assert.assertTrue(d.isExplodes());
-            Assert.assertNull(d.getSavageDice());
+            Assert.assertNotNull(d.getSavageDice());
         }
 
         @Test
@@ -309,7 +310,7 @@ public class RPGDiceTest {
 
         @Test
         public void shouldPrintDiceRollWithSavage() {
-            RPGDice d = RPGDice.parse("2d6s");
+            RPGDice d = RPGDice.parse("2d6");
 
             Assert.assertNotNull(d);
 
