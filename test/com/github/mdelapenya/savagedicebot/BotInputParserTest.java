@@ -46,7 +46,7 @@ public class BotInputParserTest {
         user = new TelegramUser(1L, null, null, null);
         String result = parser.checkUser(user);
 
-        Assert.assertEquals("Desconocido", result);
+        Assert.assertEquals("Unknown", result);
     }
 
 }

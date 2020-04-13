@@ -47,7 +47,7 @@ public class BotInputParser {
             return telegramUser.getLastName();
         }
 
-        return "Desconocido";
+        return "Unknown";
     }
 
 }
