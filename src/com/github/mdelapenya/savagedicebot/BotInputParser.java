@@ -19,9 +19,12 @@ public class BotInputParser {
 
         String usr = checkUser(telegramUser);
 
-        if(text.startsWith(DEFAULT_ROLL_COMMAND)) {
-            return new RollCommand(usr, text).execute();
-        } else if(text.equals(HELP_COMMAND)) {
+        RollCommand rc = RollCommand.getCommand(usr, text);
+        if (rc != null) {
+            return rc.execute();
+        }
+
+        if(text.equals(HELP_COMMAND)) {
             return new HelpCommand().execute();
         }
 

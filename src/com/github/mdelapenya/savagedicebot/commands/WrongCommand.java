@@ -4,14 +4,14 @@ import com.github.mdelapenya.savagedicebot.BotInputParser;
 
 public class WrongCommand implements SavageDiceBotCommand {
 
-    private String text;
+    private String command;
 
-    public WrongCommand(String text) {
-        this.text = text;
+    public WrongCommand(String command) {
+        this.command = command;
     }
 
     @Override
     public String execute() {
-        return "Command not valid: " + this.text + "\nPlease use the " + BotInputParser.HELP_COMMAND + " command";
+        return "Command not valid: " + this.command + "\nPlease use the " + BotInputParser.HELP_COMMAND + " command";
     }
 }

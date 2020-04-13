@@ -30,7 +30,9 @@ public class HelpCommand implements SavageDiceBotCommand {
         sb.append("\nIt's possible to add several 🎲 in a row:\r\n");
         sb.append("Example: /roll 2d8 -2d4e\r\n");
         sb.append("\nTo roll a 🎲 with a savage dice different than d6:\r\n");
-        sb.append("Example: /rollx 8 +1d8: one d8 using d8 as the savage 🎲\r\n");
+        sb.append("Example: /roll4 +1d8: one d8 using d4 as the savage 🎲\r\n");
+        sb.append("Example: /roll8 +1d8: one d8 using d8 as the savage 🎲\r\n");
+        sb.append("Example: /roll10 +1d8: one d8 using d10 as the savage 🎲\r\n");
         sb.append("\nIf a 🎲 is positive, it's not needed to add the sign (+-).\r\n");
         sb.append("Example:\r\n");
         sb.append("\t· /roll 1d8 1d4: one d8 plus one d4\r\n");
