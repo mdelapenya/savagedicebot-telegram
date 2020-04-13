@@ -5,6 +5,20 @@ import java.util.regex.Pattern;
 
 public class RPGDice {
 
+    /**
+     * SIGN: determines if the dice is positive or negative. Default "true" (positive).
+     *  Accepted values: [+-] (i.e. +1d4, -1d8)
+     * SAV: determines if the dice is savage. Default "true".
+     *  Accepted values: [!] (i.e. !1d4, 1d8)
+     * A: determines the number of rolls for a dice. Default value "1".
+     *  Accepted values: [integer] (i.e. 1d4, 3d8)
+     * B: determines the number of faces of a dice. Default value "1".
+     *  Accepted values: [integer] (i.e. 1d4, 1d8)
+     * EXP: determines if the dice explodes when it reaches the highest value (6 on d6, 8 on d8). Default value "false".
+     *  Accepted values: [e] (i.e. 1d4, 1d4e)
+     * ADD: determines if there is any addition to the roll. Default value "empty" (+0).
+     *  Accepted values: [+-][integer] (i.e. 1d8+4, 2d4-2)
+     */
     private static final Pattern DICE_PATTERN = Pattern.compile(
         "(?>(?<SIGN>[+-]))?(?>(?<SAV>!))?(?<A>\\d*)d(?<B>\\d+)(?>(?<EXP>e))?(?>(?<ADD>[+-])(?<C>\\d+))?");
 
