@@ -11,10 +11,6 @@ public interface SavageDiceBotCommand {
 
     String execute();
 
-    default String parseFormula(String formula) throws Exception {
-        return parseFormula(formula, RPGDice.DEFAULT_SAVAGE_FACES);
-    }
-
     default String parseFormula(String formula, int savageFaces) throws Exception {
         formula = formula.trim();
 
