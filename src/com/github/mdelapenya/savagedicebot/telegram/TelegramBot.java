@@ -44,8 +44,7 @@ public abstract class TelegramBot extends TelegramLongPollingBot {
     }
     
     @Override
-    public final String getBotToken()
-    {
+    public final String getBotToken() {
         return botToken;
     }
 
