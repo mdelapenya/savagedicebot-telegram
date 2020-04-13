@@ -1,6 +1,7 @@
 package com.github.mdelapenya.savagedicebot.model;
 
 import com.github.mdelapenya.savagedicebot.BotInputParser;
+import com.github.mdelapenya.savagedicebot.commands.HelpCommand;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import com.github.mdelapenya.savagedicebot.telegram.TelegramBot;
@@ -21,6 +22,12 @@ public class SavageDiceBot extends TelegramBot implements TelegramBotListener {
 
         long chatID = message.getChatID();
         TelegramUser telegramUser = message.getUser();
+
+        if (message.getMessageText() == null) {
+            this.sendText(chatID, new HelpCommand("Interaction not supported. Please check my /help").execute());
+            return;
+        }
+
         String resultText = new BotInputParser().parse(telegramUser, message.getMessageText());
 
         if (resultText != null) {
