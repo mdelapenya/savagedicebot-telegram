@@ -5,28 +5,28 @@ public class HelpCommand implements SavageDiceBotCommand {
     public String execute() {
         StringBuilder sb = new StringBuilder(24);
 
-        sb.append("<b>SavageDiceBot - Ayuda</b>\r\n");
-        sb.append(" - Formato de dado: [+|-][?]NdC[e]\r\n");
-        sb.append("   · N: número de dados\r\n");
-        sb.append("   · C: número de cara de los dados\r\n");
-        sb.append("   · e: para indicar que el dado explora\r\n");
-        sb.append(" - Ejemplos:\r\n");
-        sb.append("   · /d +2d8: 2 dados de 8\r\n");
-        sb.append("   · /d +1d6e: 1 dado de 6 que puede explotar\r\n");
-        sb.append("   · /d +!1d6e: 1 dado de 6 que puede explotar SIN dado salvage\r\n");
-        sb.append("Se pueden sumar o restar varios dados en una misma tirada:\r\n");
-        sb.append(" - Ejemplo: +2d8 -2d4e\r\n");
-        sb.append("Si se va realizar una tirada con dado salvaje d6 no es necesario añadir el 6.\r\n");
-        sb.append(" - Ejemplo: +1d8  =  +1d8\r\n");
-        sb.append("Si el primer dado de la tirada es para sumar no es necesario añadir el +.\r\n");
-        sb.append(" - Ejemplo: +1d8s  =  1d8s\r\n");
-        sb.append("Si solo se va a lanzar un dado no es necesario añadir el 1.\r\n");
-        sb.append(" - Ejemplo: 1d8s  =  d8s\r\n");
-        sb.append("Se puede realizar una tirada simple de forma directa.\r\n");
-        sb.append(" - Ejemplo: /d10\r\n");
-        sb.append("\r\n");
-        sb.append("Ejemplo de tirada compleja: /d 2d8 +2d6e -3d4\r\n");
-        sb.append("Ejemplo de tirada simple: /d10");
+        sb.append("🎲<b>SavageDiceBot - Help</b>🎲\r\n");
+        sb.append("\nFormat: [+|-][!]NdF[e]\r\n");
+        sb.append("\t· !: this 🎲 does not adds a savage 🎲 (optional, default true)\r\n");
+        sb.append("\t· N: number of rolls\r\n");
+        sb.append("\t· F: number of faces\r\n");
+        sb.append("\t· e: this 🎲 explodes (optional, default false)\r\n");
+        sb.append("\nExamples:\r\n");
+        sb.append("\t· /roll +2d8: two d8\r\n");
+        sb.append("\t· /roll +1d6e: one exploding d6\r\n");
+        sb.append("\t· /roll !d6e: one exploding d6 without savage dice\r\n");
+        sb.append("\nIt's possible to add several 🎲 in a row:\r\n");
+        sb.append("Example: /roll 2d8 -2d4e\r\n");
+        sb.append("\nTo roll a 🎲 with a savage dice different than d6:\r\n");
+        sb.append("Example: /rollx 8 +1d8: one d8 using d8 as the savage 🎲\r\n");
+        sb.append("\nIf a 🎲 is positive, it's not needed to add the sign (+-).\r\n");
+        sb.append("Example:\r\n");
+        sb.append("\t· /roll 1d8 1d4: one d8 plus one d4\r\n");
+        sb.append("\nIt's not needed to add the 1 if there is only one 🎲 in the roll.\r\n");
+        sb.append("Example: 1d8s  =>  d8s\r\n");
+        sb.append("\nComplex Examples:\r\n");
+        sb.append("\t· /roll 2d8 2d6e -3d4\r\n");
+        sb.append("\t· /rollx 8 2d8 2d6e -3d4");
 
         return sb.toString();
     }

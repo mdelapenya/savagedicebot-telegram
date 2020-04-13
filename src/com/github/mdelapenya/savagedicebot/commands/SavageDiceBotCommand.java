@@ -12,13 +12,17 @@ public interface SavageDiceBotCommand {
     String execute();
 
     default String parseFormula(String formula) {
+        return parseFormula(formula, RPGDice.DEFAULT_SAVAGE_FACES);
+    }
+
+    default String parseFormula(String formula, int savageFaces) {
         formula = formula.trim();
 
         List<RPGDice> dice = new ArrayList<>();
 
         String[] formulas = formula.split(" ");
         for (String f : formulas) {
-            RPGDice d = RPGDice.parse(f);
+            RPGDice d = RPGDice.parse(f, savageFaces);
             if (d == null) {
                 throw new LTBException("No se admite '" + f + "' como fórmula");
             }

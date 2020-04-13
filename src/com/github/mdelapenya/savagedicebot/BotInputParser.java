@@ -1,14 +1,13 @@
 package com.github.mdelapenya.savagedicebot;
 
-import com.github.mdelapenya.savagedicebot.commands.ComplexCommand;
 import com.github.mdelapenya.savagedicebot.commands.HelpCommand;
-import com.github.mdelapenya.savagedicebot.commands.SimpleCommand;
+import com.github.mdelapenya.savagedicebot.commands.RollCommand;
 import com.github.mdelapenya.savagedicebot.commands.WrongCommand;
 import com.github.mdelapenya.savagedicebot.model.TelegramUser;
 
 public class BotInputParser {
 
-    public static final String COMPLEX_ROLL_COMMAND = "/d ";
+    public static final String DEFAULT_ROLL_COMMAND = "/roll ";
     public static final String HELP_COMMAND = "/help";
 
     public String parse(TelegramUser telegramUser, String text) {
@@ -20,22 +19,14 @@ public class BotInputParser {
 
         String usr = checkUser(telegramUser);
 
-        if(text.startsWith(COMPLEX_ROLL_COMMAND)) {
+        if(text.startsWith(DEFAULT_ROLL_COMMAND)) {
             try {
-                return new ComplexCommand(usr, text).execute();
+                return new RollCommand(usr, text).execute();
             } catch (Exception e) {
-                return "Error en tirada: " + text.substring(3);
+                return "Error en tirada: " + text.substring(6);
             }
         } else if(text.equals(HELP_COMMAND)) {
             return new HelpCommand().execute();
-        } else if(text.startsWith("/d")) {
-            try {
-                return new SimpleCommand(usr, text).execute();
-            } catch (LTBException e) {
-                return e.getLocalizedMessage();
-            } catch (Exception e) {
-                return "Error en tirada: " + text.substring(1);
-            }
         }
 
         return new WrongCommand(text).execute();

@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 public class RPGDice {
 
+    public static final int DEFAULT_SAVAGE_FACES = 6;
+
     /**
      * SIGN: determines if the dice is positive or negative. Default "true" (positive).
      *  Accepted values: [+-] (i.e. +1d4, -1d8)
@@ -29,14 +31,14 @@ public class RPGDice {
     private boolean positive;
     private RPGDice savageDice;
 
-    private RPGDice(int rolls, int faces, int additive, boolean explodes, boolean savage, boolean positive) {
+    private RPGDice(int rolls, int faces, int additive, boolean explodes, boolean savage, int savageFaces, boolean positive) {
         this.rolls = rolls;
         this.faces = faces;
         this.additive = additive;
         this.explodes = explodes;
         this.positive = positive;
         if (savage) {
-            this.savageDice = new RPGDice(1, 6, 0, true, false, true);
+            this.savageDice = new RPGDice(1, savageFaces, 0, true, false, 0, true);
         }
     }
 
@@ -162,6 +164,10 @@ public class RPGDice {
     }
 
     public static RPGDice parse(String formula) {
+        return parse(formula, DEFAULT_SAVAGE_FACES);
+    }
+
+    public static RPGDice parse(String formula, int savageFaces) {
         Matcher matcher = DICE_PATTERN.matcher(formula);
         if(matcher.matches()) {
             int rolls = getInt(matcher, "A", 1);
@@ -172,7 +178,7 @@ public class RPGDice {
             boolean savage = !getBoolean(matcher, "SAV", "!");
             boolean positive = getBooleanOrNull(matcher, "SIGN", "+");
 
-            return new RPGDice(rolls, faces, additive * additiveSign, explodes, savage, positive);
+            return new RPGDice(rolls, faces, additive * additiveSign, explodes, savage, savageFaces, positive);
         }
         return null;
         // OR
